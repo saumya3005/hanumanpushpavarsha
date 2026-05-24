@@ -3,6 +3,7 @@
 import { useEffect, ReactNode } from "react";
 import Lenis from "lenis";
 import { motion, AnimatePresence } from "framer-motion";
+import { LanguageProvider } from "@/lib/language-context";
 
 export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -30,15 +31,18 @@ export function Providers({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <LanguageProvider>
+      <AnimatePresence mode="wait">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full flex-grow flex flex-col"
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+    </LanguageProvider>
   );
 }

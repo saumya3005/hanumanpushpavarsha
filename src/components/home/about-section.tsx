@@ -1,35 +1,31 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { HandHeart, Users, BookOpen } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 const features = [
   {
     icon: <HandHeart className="h-8 w-8 text-saffron" />,
-    title: "Religious Contribution",
-    description: "Organizing grand aartis, pushpavarsha, and regular temple activities to strengthen spiritual connection.",
+    key: "about.feat1",
   },
   {
     icon: <Users className="h-8 w-8 text-saffron" />,
-    title: "Community Service",
-    description: "Dedicated to social welfare, helping the needy, and organizing bhandaras for the community.",
+    key: "about.feat2",
   },
   {
     icon: <BookOpen className="h-8 w-8 text-saffron" />,
-    title: "Cultural Activities",
-    description: "Preserving and promoting Hindu culture through events, discourses, and traditional celebrations.",
+    key: "about.feat3",
   },
 ];
 
 export function AboutSection() {
+  const { t } = useLanguage();
+
   return (
-    <Section id="about" title="Our Mission & Vision">
+    <Section id="about" title={t("about.title")}>
       <div className="mx-auto max-w-5xl text-center">
         <p className="mb-12 font-body text-lg md:text-xl leading-relaxed text-gray-300">
-          The <span className="font-semibold text-saffron">Hanuman Pushpavarsha Committee</span> is dedicated to fostering devotion, 
-          preserving our rich cultural heritage, and serving humanity. Inspired by the unwavering devotion of Lord Hanuman towards 
-          Shri Ram, we strive to bring positive change in society through spiritual gatherings, community service, and cultural preservation.
+          {t("about.p")}
         </p>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -46,10 +42,10 @@ export function AboutSection() {
                 {feature.icon}
               </div>
               <h3 className="mb-4 font-spiritual text-2xl font-bold text-gold">
-                {feature.title}
+                {t(`${feature.key}.title`)}
               </h3>
               <p className="font-body text-gray-400">
-                {feature.description}
+                {t(`${feature.key}.desc`)}
               </p>
             </motion.div>
           ))}

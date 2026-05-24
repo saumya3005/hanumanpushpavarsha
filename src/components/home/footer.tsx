@@ -1,10 +1,11 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/language-context";
 
 export function Footer() {
+  const { language, t } = useLanguage();
+
   return (
     <footer className="relative border-t border-saffron/20 bg-black pt-16 pb-8 overflow-hidden">
       {/* Decorative top border */}
@@ -16,10 +17,10 @@ export function Footer() {
           {/* Brand Column */}
           <div className="space-y-6">
             <h3 className="font-spiritual text-2xl font-bold text-saffron gold-glow">
-              Hanuman Pushpavarsha
+              {t("footer.title")}
             </h3>
             <p className="font-body text-sm text-gray-400">
-              Serving Dharma, Devotion, Culture & Humanity. Join our community to spread the message of love and spirituality.
+              {t("footer.subtitle")}
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-saffron transition-colors" title="Facebook">
@@ -36,18 +37,18 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-6">
-            <h4 className="font-spiritual text-lg font-semibold text-white">Quick Links</h4>
+            <h4 className="font-spiritual text-lg font-semibold text-white">{t("footer.links")}</h4>
             <ul className="space-y-3 font-body text-sm text-gray-400">
-              <li><Link href="/history" className="hover:text-saffron transition-colors">About Us</Link></li>
-              <li><Link href="/#events" className="hover:text-saffron transition-colors">Upcoming Events</Link></li>
-              <li><Link href="/gallery" className="hover:text-saffron transition-colors">Gallery</Link></li>
-              <li><Link href="/donation" className="hover:text-saffron transition-colors">Make a Donation</Link></li>
+              <li><Link href="/history" className="hover:text-saffron transition-colors">{t("footer.about")}</Link></li>
+              <li><Link href="/#events" className="hover:text-saffron transition-colors">{t("footer.events")}</Link></li>
+              <li><Link href="/gallery" className="hover:text-saffron transition-colors">{t("footer.gallery")}</Link></li>
+              <li><Link href="/donation" className="hover:text-saffron transition-colors">{t("footer.donate")}</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h4 className="font-spiritual text-lg font-semibold text-white">Contact Us</h4>
+            <h4 className="font-spiritual text-lg font-semibold text-white">{t("footer.contact")}</h4>
             <ul className="space-y-4 font-body text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-saffron shrink-0" />
@@ -66,18 +67,18 @@ export function Footer() {
 
           {/* Temple Timings */}
           <div className="space-y-6">
-            <h4 className="font-spiritual text-lg font-semibold text-white">Temple Timings</h4>
+            <h4 className="font-spiritual text-lg font-semibold text-white">{t("footer.timings")}</h4>
             <ul className="space-y-3 font-body text-sm text-gray-400">
               <li className="flex justify-between border-b border-gray-800 pb-2">
-                <span>Morning Aarti</span>
+                <span>{t("footer.timings.morning")}</span>
                 <span className="text-saffron-light">06:00 AM</span>
               </li>
               <li className="flex justify-between border-b border-gray-800 pb-2">
-                <span>Darshan</span>
+                <span>{t("footer.timings.darshan")}</span>
                 <span className="text-saffron-light">07:00 AM - 12:00 PM</span>
               </li>
               <li className="flex justify-between border-b border-gray-800 pb-2">
-                <span>Evening Aarti</span>
+                <span>{t("footer.timings.evening")}</span>
                 <span className="text-saffron-light">07:00 PM</span>
               </li>
             </ul>
@@ -86,7 +87,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between border-t border-gray-800 pt-8 sm:flex-row">
           <p className="font-body text-xs text-gray-500">
-            © {new Date().getFullYear()} Hanuman Pushpavarsha Committee. All rights reserved.
+            © {new Date().getFullYear()} {t("footer.title")} {language === "hi" ? "समिति। सर्वाधिकार सुरक्षित।" : "Committee. All rights reserved."}
           </p>
           <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0">
             <a href="#" className="hover:text-gray-300">Privacy Policy</a>

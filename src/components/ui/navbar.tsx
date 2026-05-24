@@ -6,21 +6,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/lib/language-context";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/#about" },
-  { name: "History", href: "/history" },
-  { name: "Members", href: "/members" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Live Event", href: "/live" },
-  { name: "Join Us", href: "/join" },
+  { key: "nav.home", href: "/" },
+  { key: "nav.about", href: "/#about" },
+  { key: "nav.history", href: "/history" },
+  { key: "nav.members", href: "/members" },
+  { key: "nav.gallery", href: "/gallery" },
+  { key: "nav.live", href: "/live" },
+  { key: "nav.join", href: "/join" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +53,7 @@ export function Navbar() {
             </div>
           </div>
           <span className="font-spiritual text-xl font-bold tracking-wider text-white transition-colors group-hover:text-saffron hidden sm:block">
-            Hanuman Pushpavarsha
+            {t("footer.title")}
           </span>
         </Link>
 
@@ -59,21 +61,48 @@ export function Navbar() {
         <nav className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
             <Link
-              key={link.name}
+              key={link.key}
               href={link.href}
               className={cn(
                 "font-body text-sm font-medium tracking-wide transition-colors hover:text-saffron",
                 pathname === link.href ? "text-saffron" : "text-gray-300"
               )}
             >
-              {link.name}
+              {t(link.key)}
             </Link>
           ))}
+
+          {/* Language Toggle Switch */}
+          <div className="flex items-center gap-1 bg-black/40 border border-saffron/20 rounded-full p-0.5 ml-2 font-body text-xs">
+            <button
+              onClick={() => setLanguage("en")}
+              className={cn(
+                "px-2.5 py-1 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                language === "en"
+                  ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
+                  : "text-gray-400 hover:text-white"
+              )}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("hi")}
+              className={cn(
+                "px-2.5 py-1 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                language === "hi"
+                  ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
+                  : "text-gray-400 hover:text-white"
+              )}
+            >
+              हिन्दी
+            </button>
+          </div>
+
           <Link
             href="/donation"
             className="flex items-center gap-2 rounded-full border border-saffron/50 bg-saffron/10 px-5 py-2 font-body text-sm font-semibold text-saffron transition-all hover:bg-saffron hover:text-white"
           >
-            Donate <Heart className="h-4 w-4" />
+            {t("nav.donate")} <Heart className="h-4 w-4" />
           </Link>
         </nav>
 
@@ -98,20 +127,47 @@ export function Navbar() {
             <div className="flex flex-col items-center gap-6 py-8">
               {navLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-spiritual text-lg text-gray-300 hover:text-saffron"
                 >
-                  {link.name}
+                  {t(link.key)}
                 </Link>
               ))}
+
+              {/* Mobile Language Toggle */}
+              <div className="flex items-center gap-1 bg-black/40 border border-saffron/20 rounded-full p-0.5 my-2 font-body text-xs">
+                <button
+                  onClick={() => setLanguage("en")}
+                  className={cn(
+                    "px-4 py-1.5 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                    language === "en"
+                      ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
+                      : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => setLanguage("hi")}
+                  className={cn(
+                    "px-4 py-1.5 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                    language === "hi"
+                      ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
+                      : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  हिन्दी
+                </button>
+              </div>
+
               <Link
                 href="/donation"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 rounded-full bg-saffron px-8 py-3 font-body font-semibold text-white"
               >
-                Donate Now <Heart className="h-4 w-4" />
+                {t("hero.btn.donate")} <Heart className="h-4 w-4" />
               </Link>
             </div>
           </motion.nav>

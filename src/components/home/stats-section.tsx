@@ -1,18 +1,18 @@
-"use client";
-
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import { Section } from "@/components/ui/section";
+import { useLanguage } from "@/lib/language-context";
 
 const stats = [
-  { label: "Total Members", value: 500, suffix: "+" },
-  { label: "Events Organized", value: 150, suffix: "+" },
-  { label: "Years of Service", value: 25, suffix: "" },
-  { label: "Donations Collected", value: 10, suffix: "L+" },
-  { label: "Volunteers Joined", value: 2000, suffix: "+" },
+  { key: "stats.members", value: 500, suffix: "+" },
+  { key: "stats.events", value: 150, suffix: "+" },
+  { key: "stats.years", value: 25, suffix: "" },
+  { key: "stats.donations", value: 10, suffix: "L+" },
+  { key: "stats.volunteers", value: 2000, suffix: "+" },
 ];
 
 export function StatsSection() {
+  const { t } = useLanguage();
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -32,7 +32,7 @@ export function StatsSection() {
               {stat.suffix}
             </div>
             <div className="mt-2 font-body text-sm md:text-base font-medium uppercase tracking-widest text-gray-400">
-              {stat.label}
+              {t(stat.key)}
             </div>
           </div>
         ))}

@@ -1,38 +1,37 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { DivineButton } from "@/components/ui/divine-button";
 import { Calendar, MapPin, Clock } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/language-context";
 
 // Placeholder data - later to be fetched from Supabase
 const upcomingEvents = [
   {
     id: 1,
-    title: "Maha Aarti & Pushpavarsha",
+    key: "events.event1",
     date: "25 Oct 2026",
     time: "06:00 PM",
-    venue: "Main Temple Ground, Prayagraj",
     image:
       "https://images.unsplash.com/photo-1542104445-5cb3d4b655ab?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
-    title: "Sundarkand Path",
+    key: "events.event2",
     date: "02 Nov 2026",
     time: "04:00 PM",
-    venue: "Community Hall",
     image:
       "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
 export function EventsSection() {
+  const { t } = useLanguage();
+
   return (
     <Section
       id="events"
-      title="Upcoming Events"
+      title={t("events.title")}
       className="bg-temple-bg/50"
     >
       <div className="mx-auto max-w-6xl">
@@ -50,7 +49,7 @@ export function EventsSection() {
               <div className="relative h-64 w-full overflow-hidden">
                 <img
                   src={event.image}
-                  alt={event.title}
+                  alt={t(`${event.key}.title`)}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -60,7 +59,7 @@ export function EventsSection() {
               {/* Event Details */}
               <div className="relative z-10 p-6">
                 <h3 className="mb-4 font-spiritual text-2xl font-bold text-white transition-colors group-hover:text-gold">
-                  {event.title}
+                  {t(`${event.key}.title`)}
                 </h3>
 
                 <div className="mb-6 space-y-2 font-body text-sm text-gray-300">
@@ -76,19 +75,19 @@ export function EventsSection() {
 
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-saffron" />
-                    <span>{event.venue}</span>
+                    <span>{t(`${event.key}.venue`)}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <Link href="/join">
                     <DivineButton variant="outline" size="sm">
-                      Register Now
+                      {t("events.btn.register")}
                     </DivineButton>
                   </Link>
 
                   <div className="animate-pulse text-sm text-saffron-light">
-                    Join Us
+                    {t("events.join")}
                   </div>
                 </div>
               </div>
@@ -99,7 +98,7 @@ export function EventsSection() {
         <div className="mt-12 text-center">
           <Link href="/live">
             <DivineButton variant="ghost">
-              View All Events
+              {t("events.btn.view")}
             </DivineButton>
           </Link>
         </div>

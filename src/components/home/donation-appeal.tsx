@@ -1,12 +1,13 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { DivineButton } from "@/components/ui/divine-button";
 import { HeartHandshake } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/language-context";
 
 export function DonationAppealSection() {
+  const { t } = useLanguage();
+
   return (
     <Section id="donate" className="relative overflow-hidden border-y border-saffron/20 bg-maroon-dark/20">
       {/* Background glowing orb */}
@@ -24,24 +25,22 @@ export function DonationAppealSection() {
         </motion.div>
 
         <h2 className="mb-6 font-spiritual text-4xl md:text-5xl font-bold text-white gold-glow">
-          Support Our Divine Cause
+          {t("donation.appeal.title")}
         </h2>
         
         <p className="mb-10 font-body text-lg text-gray-300 md:text-xl leading-relaxed">
-          Your generous contribution helps us organize spiritual events, maintain our heritage, 
-          and serve the community through food distribution and social welfare programs. 
-          Every small donation makes a big difference.
+          {t("donation.appeal.desc")}
         </p>
 
         <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
           <Link href="/donation" className="w-full sm:w-auto">
             <DivineButton size="lg" className="w-full">
-              Donate Now
+              {t("donation.appeal.btn")}
             </DivineButton>
           </Link>
           <div className="text-sm text-gray-400 font-body flex flex-col items-center">
-            <span>Secure Checkout</span>
-            <span className="text-saffron-light">80G Tax Exemption Available</span>
+            <span>{t("donation.appeal.secure")}</span>
+            <span className="text-saffron-light">{t("donation.appeal.tax")}</span>
           </div>
         </div>
       </div>
