@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SpiritualBackground } from "@/components/ui/spiritual-background";
 import { Section } from "@/components/ui/section";
 import { Footer } from "@/components/home/footer";
-import { 
-  X, ZoomIn, ArrowLeft, Calendar, Image as ImageIcon, Sparkles, 
-  ChevronLeft, ChevronRight, Play, Pause, LayoutGrid, SlidersHorizontal, 
+import {
+  X, ZoomIn, ArrowLeft, Calendar, Image as ImageIcon, Sparkles,
+  ChevronLeft, ChevronRight, Play, Pause, LayoutGrid, SlidersHorizontal,
   Maximize2, Minimize2, Check, Info, Heart
 } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
@@ -33,55 +33,55 @@ interface Album {
 
 const albumsData: Album[] = [
   {
-    year: "2026",
+    year: "2025",
     titleKey: "gallery.album.2026.title",
     descKey: "gallery.album.2026.desc",
-    coverImage: "https://images.unsplash.com/photo-1542104445-5cb3d4b655ab?auto=format&fit=crop&q=80&w=800",
+    coverImage: "https://i.postimg.cc/pXzWfFLN/hpvc-2025-8.jpg",
     images: [
       {
-        id: "26-1",
-        src: "https://images.unsplash.com/photo-1542104445-5cb3d4b655ab?auto=format&fit=crop&q=80&w=800",
-        category: "Maha Aarti",
+        id: "25-1",
+        src: "https://i.postimg.cc/Fs3ryLs8/hpvc-10-2025.jpg",
+        category: "Pushp Varsha",
         captionKey: "gallery.photo.26_1.caption",
         dateKey: "gallery.date.jan26",
         aspectRatio: "aspect-[4/3]"
       },
       {
-        id: "26-2",
-        src: "https://images.unsplash.com/photo-1590076211181-768a846c4f03?auto=format&fit=crop&q=80&w=800",
-        category: "Pushpavarsha",
+        id: "25-2",
+        src: "https://i.postimg.cc/m2CLYHgZ/hpvc2025.jpg",
+        category: "Roshni",
         captionKey: "gallery.photo.26_2.caption",
         dateKey: "gallery.date.apr26",
         aspectRatio: "aspect-[3/4]"
       },
       {
-        id: "26-3",
-        src: "https://images.unsplash.com/photo-1584036531338-e692da39ff0d?auto=format&fit=crop&q=80&w=800",
-        category: "Seva / Bhandara",
+        id: "25-3",
+        src: "https://i.postimg.cc/gk8zVZ2P/hpvc-52025.jpg",
+        category: "Ram Dal",
         captionKey: "gallery.photo.26_3.caption",
         dateKey: "gallery.date.may26",
         aspectRatio: "aspect-[1/1]"
       },
       {
-        id: "26-4",
-        src: "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
-        category: "Bhajan / Kirtan",
+        id: "25-4",
+        src: "https://i.postimg.cc/TYgdVD3G/hpvc-62025.jpg",
+        category: "Maha Aarti",
         captionKey: "gallery.photo.26_4.caption",
         dateKey: "gallery.date.jun26",
         aspectRatio: "aspect-[4/3]"
       },
       {
-        id: "26-5",
-        src: "https://images.unsplash.com/photo-1609137882641-524f2b1c4e0f?auto=format&fit=crop&q=80&w=800",
-        category: "Temple Moments",
+        id: "25-5",
+        src: "https://i.postimg.cc/PrYXWwrc/hpvc-3-2025.jpg",
+        category: "Moments",
         captionKey: "gallery.photo.26_5.caption",
         dateKey: "gallery.date.jul26",
         aspectRatio: "aspect-[3/4]"
       },
       {
-        id: "26-6",
-        src: "https://images.unsplash.com/photo-1514222709107-a180c68d72b4?auto=format&fit=crop&q=80&w=800",
-        category: "Volunteer Service",
+        id: "25-6",
+        src: "https://i.postimg.cc/MKV67Qpz/hpvc-papa.jpg",
+        category: "Gate Visarjan",
         captionKey: "gallery.photo.26_6.caption",
         dateKey: "gallery.date.aug26",
         aspectRatio: "aspect-[4/3]"
@@ -89,7 +89,7 @@ const albumsData: Album[] = [
     ],
   },
   {
-    year: "2025",
+    year: "2024",
     titleKey: "gallery.album.2025.title",
     descKey: "gallery.album.2025.desc",
     coverImage: "https://images.unsplash.com/photo-1609137882641-524f2b1c4e0f?auto=format&fit=crop&q=80&w=800",
@@ -137,7 +137,7 @@ const albumsData: Album[] = [
     ],
   },
   {
-    year: "2024",
+    year: "2023",
     titleKey: "gallery.album.2024.title",
     descKey: "gallery.album.2024.desc",
     coverImage: "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
@@ -185,7 +185,7 @@ const albumsData: Album[] = [
     ],
   },
   {
-    year: "2023",
+    year: "2022",
     titleKey: "gallery.album.2023.title",
     descKey: "gallery.album.2023.desc",
     coverImage: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=800",
@@ -225,7 +225,7 @@ const albumsData: Album[] = [
     ],
   },
   {
-    year: "2022",
+    year: "2021",
     titleKey: "gallery.album.2022.title",
     descKey: "gallery.album.2022.desc",
     coverImage: "https://images.unsplash.com/photo-1590076211181-768a846c4f03?auto=format&fit=crop&q=80&w=800",
@@ -267,24 +267,24 @@ const galleryDict: Record<string, Record<string, string>> = {
     "gallery.timeline": "Historical Timeline",
     "gallery.photo": "Memory",
     "gallery.of": "of",
-    "gallery.album.2026.title": "2026 Recap",
-    "gallery.album.2026.desc": "Divine Prayagraj Aarti, flower showers, and digital community expansion milestones.",
-    "gallery.album.2025.title": "2025 Recap",
+    "gallery.album.2026.title": "2025 Recap",
+    "gallery.album.2026.desc": "Divine scenes of 2025 — celebrating Pushpa Varsha and the grand Aarti",
+    "gallery.album.2025.title": "2024 Recap",
     "gallery.album.2025.desc": "Hanuman Janmotsav path recitals and monumental public Bhandara distributions.",
-    "gallery.album.2024.title": "2024 Recap",
+    "gallery.album.2024.title": "2023 Recap",
     "gallery.album.2024.desc": "Swaying bhajan sandhyas and local volunteering service campaigns.",
-    "gallery.album.2023.title": "2023 Recap",
+    "gallery.album.2023.title": "2022 Recap",
     "gallery.album.2023.desc": "Weekly feeding drives, Kartik light installations, and Sangam gatherings.",
-    "gallery.album.2022.title": "2022 Recap",
+    "gallery.album.2022.title": "2021 Recap",
     "gallery.album.2022.desc": "Post-lockdown petal cascade returns and direct live audio-video broadcast streams.",
 
     // Image details translations
-    "gallery.photo.26_1.caption": "Divine evening lights on the banks of Prayagraj Sangam.",
-    "gallery.photo.26_2.caption": "Glorious cascade of fresh flower petals raining on devotees.",
-    "gallery.photo.26_3.caption": "Devoted committee cooks preparing traditional Prasad meals.",
+    "gallery.photo.26_1.caption": "Divine Pushpa Varsha by Lord Hanuman -a beautiful symbol of faith and blessings",
+    "gallery.photo.26_2.caption": "A divine and mesmerizing sight during the sacred occasion of Roshni, filled with faith and devotion.",
+    "gallery.photo.26_3.caption": "A divine and vibrant moment during the sacred occasion of Ram Dal, filled with faith and devotion.",
     "gallery.photo.26_4.caption": "Traditional musical chants praising Lord Hanuman's courage.",
-    "gallery.photo.26_5.caption": "Shringar Darshan rituals inside the highly adorned inner shrine.",
-    "gallery.photo.26_6.caption": "Youth volunteers preparing sacred marigold flower garlands.",
+    "gallery.photo.26_5.caption": "Some special and memorable moments.",
+    "gallery.photo.26_6.caption": "Divine moments of Hawan and conclusion during the sacred occasion of Gate Visarjan.",
 
     "gallery.photo.25_1.caption": "The holy orange Murti decorated for Hanuman Janmotsav.",
     "gallery.photo.25_2.caption": "Arranging lines of seating for standard temple Bhandara feeds.",
@@ -308,29 +308,29 @@ const galleryDict: Record<string, Record<string, string>> = {
     "gallery.photo.22_3.caption": "Ornate dome arches shimmering under yellow lights.",
 
     // Dates
-    "gallery.date.jan26": "Jan 2026",
-    "gallery.date.apr26": "Apr 2026",
-    "gallery.date.may26": "May 2026",
-    "gallery.date.jun26": "Jun 2026",
-    "gallery.date.jul26": "Jul 2026",
-    "gallery.date.aug26": "Aug 2026",
-    "gallery.date.feb25": "Feb 2025",
-    "gallery.date.apr25": "Apr 2025",
-    "gallery.date.oct25": "Oct 2025",
-    "gallery.date.nov25": "Nov 2025",
-    "gallery.date.dec25": "Dec 2025",
+    "gallery.date.jan26": "Sep 2025",
+    "gallery.date.apr26": "Sep 2025",
+    "gallery.date.may26": "Sep 2025",
+    "gallery.date.jun26": "Sep 2025",
+    "gallery.date.jul26": "Sep 2025",
+    "gallery.date.aug26": "Sep 2025",
+    "gallery.date.feb25": "Feb 2024",
+    "gallery.date.apr25": "Apr 2024",
+    "gallery.date.oct25": "Oct 2024",
+    "gallery.date.nov25": "Nov 2024",
+    "gallery.date.dec25": "Dec 2024",
     "gallery.date.mar24": "Mar 2024",
-    "gallery.date.may24": "May 2024",
-    "gallery.date.jul24": "Jul 2024",
-    "gallery.date.sep24": "Sep 2024",
-    "gallery.date.nov24": "Nov 2024",
-    "gallery.date.jan23": "Jan 2023",
-    "gallery.date.apr23": "Apr 2023",
-    "gallery.date.aug23": "Aug 2023",
-    "gallery.date.dec23": "Dec 2023",
-    "gallery.date.mar22": "Mar 2022",
-    "gallery.date.nov22": "Nov 2022",
-    "gallery.date.dec22": "Dec 2022",
+    "gallery.date.may24": "May 2023",
+    "gallery.date.jul24": "Jul 2023",
+    "gallery.date.sep24": "Sep 2023",
+    "gallery.date.nov24": "Nov 2023",
+    "gallery.date.jan23": "Jan 2022",
+    "gallery.date.apr23": "Apr 2022",
+    "gallery.date.aug23": "Aug 2022",
+    "gallery.date.dec23": "Dec 2022",
+    "gallery.date.mar22": "Mar 2021",
+    "gallery.date.nov22": "Nov 2021",
+    "gallery.date.dec22": "Dec 2021",
 
     // UI Tools
     "gallery.filter.all": "All Memories",
@@ -352,7 +352,7 @@ const galleryDict: Record<string, Record<string, string>> = {
     "gallery.photo": "स्मृति",
     "gallery.of": "की",
     "gallery.album.2026.title": "2026 स्मृतियां",
-    "gallery.album.2026.desc": "दिव्य प्रयागराज महाआरती, भव्य पुष्पवर्षा, और डिजिटल वैश्विक समुदाय विस्तार के ऐतिहासिक क्षण।",
+    "gallery.album.2026.desc": "2025 के दिव्य दृश्य — पुष्प वर्षा और भव्य आरती के पावन पल।",
     "gallery.album.2025.title": "2025 स्मृतियां",
     "gallery.album.2025.desc": "हनुमान जन्मोत्सव के पावन पाठ, कीर्तन और विशाल सार्वजनिक भंडारा वितरण अभियान।",
     "gallery.album.2024.title": "2024 स्मृतियां",
@@ -363,12 +363,12 @@ const galleryDict: Record<string, Record<string, string>> = {
     "gallery.album.2022.desc": "लॉकडाउन के बाद पुष्पवर्षा की भव्य वापसी और पहले डिजिटल लाइव प्रसारण की शुरुआत।",
 
     // Image details translations (Hindi)
-    "gallery.photo.26_1.caption": "पवित्र प्रयागराज संगम तट पर आयोजित भव्य महाआरती की दिव्य छटा।",
-    "gallery.photo.26_2.caption": "हनुमान जयंती पर भक्तों के ऊपर होती मनमोहक ताजे फूलों की पुष्पवर्षा।",
-    "gallery.photo.26_3.caption": "भंडारे के लिए श्रद्धापूर्वक महाप्रसाद तैयार करते सेवादार।",
+    "gallery.photo.26_1.caption": "हनुमान जी द्वारा की गई दिव्य पुष्प वर्षा — आस्था और आशीर्वाद का अद्भुत दृश्य।",
+    "gallery.photo.26_2.caption": "रोशनी के पावन अवसर पर आस्था, भक्ति और दिव्यता से सजा अद्भुत दृश्य।",
+    "gallery.photo.26_3.caption": "राम दल के पावन अवसर पर भक्ति, श्रद्धा और उत्साह से भरा दिव्य दृश्य।",
     "gallery.photo.26_4.caption": "हनुमान चालीसा और दिव्य भजनों का सामूहिक संगीतमय गायन।",
-    "gallery.photo.26_5.caption": "फूलों और वस्त्रों से अलंकृत गर्भगृह के भव्य शृंगार दर्शन।",
-    "gallery.photo.26_6.caption": "मंदिर की सजावट के लिए गेंदे के फूलों की माला बनाते युवा स्वयंसेवक।",
+    "gallery.photo.26_5.caption": "कुछ विशेष और यादगार पल।",
+    "gallery.photo.26_6.caption": "गेट विसर्जन के पावन अवसर पर हवन एवं समापन के दिव्य पल।",
 
     "gallery.photo.25_1.caption": "हनुमान जन्मोत्सव पर सिंदूरी प्रतिमा का भव्य और मनोहारी रूप।",
     "gallery.photo.25_2.caption": "साप्ताहिक विशाल भंडारे में भक्तों के लिए भोजन की सुंदर व्यवस्था।",
@@ -433,7 +433,7 @@ const galleryDict: Record<string, Record<string, string>> = {
 export default function GalleryPage() {
   const { language, t } = useLanguage();
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
-  
+
   // Interactive Filter Tags
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
@@ -455,7 +455,7 @@ export default function GalleryPage() {
   };
 
   // Capture all unique categories in active album
-  const categoriesList = activeAlbum 
+  const categoriesList = activeAlbum
     ? ["All", ...Array.from(new Set(activeAlbum.images.map((img) => img.category)))]
     : [];
 
@@ -550,7 +550,7 @@ export default function GalleryPage() {
       <div className="relative z-10 flex-grow pt-32">
         <Section title={t("gallery.title")}>
           <div className="mx-auto max-w-7xl px-4 pb-16">
-            
+
             <AnimatePresence mode="wait">
               {/* ALBUM SELECTION GRID VIEW */}
               {!selectedYear ? (
@@ -584,7 +584,7 @@ export default function GalleryPage() {
                       >
                         {/* Interactive smartphone-style stacked folder */}
                         <div className="relative aspect-[4/3] w-full rounded-2xl mb-6 select-none bg-temple-card/40 border border-white/5 shadow-2xl p-1">
-                          
+
                           {/* Folder Tab Design Accent */}
                           <div className="absolute top-[-10px] left-8 w-24 h-4 bg-temple-card/80 border-t border-x border-white/10 rounded-t-lg z-0" />
 
@@ -598,7 +598,7 @@ export default function GalleryPage() {
                               className="absolute inset-0 bg-cover bg-center rounded-xl border border-white/5 opacity-15 scale-90 translate-y-[-10px] rotate-[-4deg] z-0 shadow-[0_12px_24px_rgba(0,0,0,0.85)]"
                               style={{ backgroundImage: `url(${album.images[2]?.src || album.coverImage})` }}
                             />
-                            
+
                             {/* Layer 2 - Middle Stack Card */}
                             <motion.div
                               variants={{
@@ -608,7 +608,7 @@ export default function GalleryPage() {
                               className="absolute inset-0 bg-cover bg-center rounded-xl border border-white/5 opacity-45 scale-95 translate-y-[-5px] rotate-[4deg] z-10 shadow-[0_14px_28px_rgba(0,0,0,0.85)]"
                               style={{ backgroundImage: `url(${album.images[1]?.src || album.coverImage})` }}
                             />
-                            
+
                             {/* Layer 1 - Front Cover Card */}
                             <motion.div
                               variants={{
@@ -620,7 +620,7 @@ export default function GalleryPage() {
                             >
                               {/* Glowing saffron vignette inside card */}
                               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent z-10 opacity-90 group-hover:from-saffron/30 group-hover:via-black/25 transition-all duration-700" />
-                              
+
                               {/* Saffron Year badge */}
                               <div className="absolute top-4 right-4 bg-gradient-to-r from-saffron to-gold border border-saffron/40 rounded-full px-4 py-1.5 text-xs font-bold text-black z-30 shadow-lg font-spiritual tracking-wider">
                                 {album.year}
@@ -662,7 +662,7 @@ export default function GalleryPage() {
                 >
                   {/* Smartphone stack folder opening top controls */}
                   <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-saffron/25 pb-8">
-                    
+
                     <button
                       onClick={() => setSelectedYear(null)}
                       className="group flex items-center gap-2 text-saffron hover:text-white transition-colors cursor-pointer self-start py-2.5 px-5 rounded-full border border-saffron/20 hover:border-saffron bg-saffron/5 hover:bg-saffron/20 font-body text-sm shadow-md"
@@ -715,23 +715,22 @@ export default function GalleryPage() {
 
                   {/* HIGH-FIDELITY CONTROLS BAR: Category tabs and layout style switcher */}
                   <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between bg-temple-card/30 border border-white/5 backdrop-blur-md rounded-2xl p-4 select-none">
-                    
+
                     {/* Horizontal Pill tags */}
                     <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none max-w-full">
                       {categoriesList.map((category) => (
                         <button
                           key={category}
                           onClick={() => setActiveCategory(category)}
-                          className={`relative py-2 px-4 rounded-full text-xs font-medium tracking-wide transition-all cursor-pointer whitespace-nowrap ${
-                            activeCategory === category 
-                              ? "text-black font-semibold" 
-                              : "text-gray-300 hover:text-white hover:bg-white/5"
-                          }`}
+                          className={`relative py-2 px-4 rounded-full text-xs font-medium tracking-wide transition-all cursor-pointer whitespace-nowrap ${activeCategory === category
+                            ? "text-black font-semibold"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                            }`}
                         >
                           <span className="relative z-10">
                             {category === "All" ? getTranslated("gallery.filter.all") : category}
                           </span>
-                          
+
                           {activeCategory === category && (
                             <motion.div
                               layoutId="categoryTagHighlight"
@@ -749,26 +748,24 @@ export default function GalleryPage() {
                         <SlidersHorizontal className="w-3.5 h-3.5 text-saffron" />
                         {getTranslated("gallery.layout.label")}:
                       </span>
-                      
+
                       <div className="flex bg-black/60 rounded-lg p-1 border border-white/5">
                         <button
                           onClick={() => setGridStyle("classic")}
-                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-2xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                            gridStyle === "classic" 
-                              ? "bg-gradient-to-r from-saffron/15 to-gold/15 border border-saffron/30 text-saffron" 
-                              : "text-gray-400 hover:text-white"
-                          }`}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-2xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${gridStyle === "classic"
+                            ? "bg-gradient-to-r from-saffron/15 to-gold/15 border border-saffron/30 text-saffron"
+                            : "text-gray-400 hover:text-white"
+                            }`}
                         >
                           <LayoutGrid className="w-3.5 h-3.5" />
                           <span>{getTranslated("gallery.layout.classic")}</span>
                         </button>
                         <button
                           onClick={() => setGridStyle("masonry")}
-                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-2xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                            gridStyle === "masonry" 
-                              ? "bg-gradient-to-r from-saffron/15 to-gold/15 border border-saffron/30 text-saffron" 
-                              : "text-gray-400 hover:text-white"
-                          }`}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-2xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${gridStyle === "masonry"
+                            ? "bg-gradient-to-r from-saffron/15 to-gold/15 border border-saffron/30 text-saffron"
+                            : "text-gray-400 hover:text-white"
+                            }`}
                         >
                           <ImageIcon className="w-3.5 h-3.5" />
                           <span>{getTranslated("gallery.layout.masonry")}</span>
@@ -819,7 +816,7 @@ export default function GalleryPage() {
                               <span className="absolute top-4 right-4 bg-gradient-to-r from-saffron to-gold text-black text-2xs font-bold uppercase rounded-md px-2.5 py-1 tracking-wider font-spiritual shadow-md">
                                 {image.category}
                               </span>
-                              
+
                               <ZoomIn className="w-8 h-8 text-saffron mb-3 group-hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_8px_var(--saffron)]" />
                               <h4 className="font-spiritual text-lg font-semibold text-white mb-1.5 line-clamp-1 gold-glow">{getTranslated(image.captionKey)}</h4>
                               <p className="font-body text-xs text-gray-400 flex items-center gap-1.5">
@@ -860,9 +857,8 @@ export default function GalleryPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ type: "spring", stiffness: 90, damping: 14 }}
                                     onClick={() => setSelectedImageIndex(globalIndex)}
-                                    className={`group relative overflow-hidden rounded-2xl cursor-pointer bg-temple-card/30 border border-saffron/15 hover:border-saffron/60 transition-colors shadow-lg select-none ${
-                                      image.aspectRatio || "aspect-square"
-                                    }`}
+                                    className={`group relative overflow-hidden rounded-2xl cursor-pointer bg-temple-card/30 border border-saffron/15 hover:border-saffron/60 transition-colors shadow-lg select-none ${image.aspectRatio || "aspect-square"
+                                      }`}
                                   >
                                     <img
                                       src={image.src}
@@ -879,7 +875,7 @@ export default function GalleryPage() {
                                       <span className="absolute top-4 right-4 bg-gradient-to-r from-saffron to-gold text-black text-2xs font-bold uppercase rounded-md px-2.5 py-1 tracking-wider font-spiritual shadow-md">
                                         {image.category}
                                       </span>
-                                      
+
                                       <ZoomIn className="w-8 h-8 text-saffron mb-3 group-hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_8px_var(--saffron)]" />
                                       <h4 className="font-spiritual text-lg font-semibold text-white mb-1.5 line-clamp-2 gold-glow">{getTranslated(image.captionKey)}</h4>
                                       <p className="font-body text-xs text-gray-400 flex items-center gap-1.5">
@@ -938,11 +934,10 @@ export default function GalleryPage() {
               <div className="flex items-center gap-3">
                 <button
                   title={getTranslated("gallery.slideshow.start")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-2xs font-semibold uppercase tracking-wider transition-colors border cursor-pointer ${
-                    isPlaying 
-                      ? "bg-saffron text-black border-saffron shadow-lg shadow-saffron/20" 
-                      : "bg-white/5 hover:bg-white/10 text-white border-white/10"
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-2xs font-semibold uppercase tracking-wider transition-colors border cursor-pointer ${isPlaying
+                    ? "bg-saffron text-black border-saffron shadow-lg shadow-saffron/20"
+                    : "bg-white/5 hover:bg-white/10 text-white border-white/10"
+                    }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsPlaying(!isPlaying);
@@ -954,11 +949,10 @@ export default function GalleryPage() {
 
                 <button
                   title={getTranslated("gallery.zoom.in")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-2xs font-semibold uppercase tracking-wider transition-colors border cursor-pointer ${
-                    isZoomed 
-                      ? "bg-gold text-black border-gold shadow-lg shadow-gold/20" 
-                      : "bg-white/5 hover:bg-white/10 text-white border-white/10"
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-2xs font-semibold uppercase tracking-wider transition-colors border cursor-pointer ${isZoomed
+                    ? "bg-gold text-black border-gold shadow-lg shadow-gold/20"
+                    : "bg-white/5 hover:bg-white/10 text-white border-white/10"
+                    }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsZoomed(!isZoomed);
@@ -982,7 +976,7 @@ export default function GalleryPage() {
 
             {/* LIGHTBOX MAIN PHOTO SLIDER AND SIDE CONTROLS */}
             <div className="relative w-full flex-grow flex items-center justify-center my-4 overflow-hidden">
-              
+
               {/* Prev Slide arrow */}
               <button
                 className="absolute left-2 md:left-6 z-[110] text-white hover:text-saffron bg-black/60 hover:bg-saffron/15 border border-white/5 p-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg"
@@ -995,7 +989,7 @@ export default function GalleryPage() {
               </button>
 
               {/* CENTRAL DYNAMIC STACK SLIDING VIEWER */}
-              <div 
+              <div
                 className="relative w-full max-w-4xl h-[55vh] flex items-center justify-center cursor-zoom-in overflow-hidden"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1038,7 +1032,7 @@ export default function GalleryPage() {
 
             {/* LIGHTBOX FOOTER: Caption overlays and scrolling filmstrip list */}
             <div className="w-full space-y-4 select-none z-[110]" onClick={(e) => e.stopPropagation()}>
-              
+
               {/* Image specific Caption cards */}
               <div className="mx-auto max-w-2xl text-center bg-gradient-to-b from-temple-card/90 to-black border border-white/5 backdrop-blur-xl p-5 rounded-2xl shadow-xl">
                 <div className="flex items-center justify-center gap-3 mb-2">
@@ -1050,7 +1044,7 @@ export default function GalleryPage() {
                     {getTranslated(displayedImages[selectedImageIndex].dateKey)}
                   </span>
                 </div>
-                
+
                 <h3 className="font-spiritual text-lg md:text-xl font-medium text-white mb-1.5 leading-snug gold-glow">
                   {getTranslated(displayedImages[selectedImageIndex].captionKey)}
                 </h3>
@@ -1058,7 +1052,7 @@ export default function GalleryPage() {
 
               {/* SCROLLING FILMSTRIP ROW CONTAINER */}
               <div className="relative mx-auto max-w-xl">
-                <div 
+                <div
                   ref={filmstripRef}
                   className="flex items-center gap-3 overflow-x-auto py-2 px-6 scrollbar-none snap-x"
                 >
@@ -1070,11 +1064,10 @@ export default function GalleryPage() {
                         setSelectedImageIndex(thumbIdx);
                         setIsZoomed(false);
                       }}
-                      className={`relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 cursor-pointer transition-all snap-center ${
-                        selectedImageIndex === thumbIdx 
-                          ? "border-saffron scale-110 shadow-[0_0_10px_var(--saffron)] opacity-100" 
-                          : "border-transparent opacity-45 hover:opacity-80"
-                      }`}
+                      className={`relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 cursor-pointer transition-all snap-center ${selectedImageIndex === thumbIdx
+                        ? "border-saffron scale-110 shadow-[0_0_10px_var(--saffron)] opacity-100"
+                        : "border-transparent opacity-45 hover:opacity-80"
+                        }`}
                     >
                       <img
                         src={image.src}
@@ -1098,7 +1091,7 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       <div className="relative z-10">
         <Footer />
       </div>
