@@ -48,7 +48,12 @@ const translations: Record<Language, Record<string, string>> = {
 
     // About Section
     "about.title": "Our Mission & Vision",
-    "about.p": "The Hanuman Pushpavarsha Committee is dedicated to fostering devotion, preserving our rich cultural heritage, and serving humanity. Inspired by the unwavering devotion of Lord Hanuman towards Shri Ram, we strive to bring positive change in society through spiritual gatherings, community service, and cultural preservation.",
+    "about.p": `🇬🇧 English Version
+Hanuman Pushpa Varsha Committee, Prayagraj
+(Established – 1954)
+On the sacred occasion of Dussehra, this divine tradition held at Sulaki Chauraha, Prayagraj, has been a symbol of faith and devotion for decades.
+During the days of Dussehra, Lord Hanuman performs daily Pushpa Varsha (flower shower), which is considered a blessing for all devotees.
+The highlight of this tradition is the two special days when Lord Hanuman performs the grand Aarti, creating a truly divine and unforgettable experience for every devotee.`,
     "about.feat1.title": "Religious Contribution",
     "about.feat1.desc": "Organizing grand aartis, pushpavarsha, and regular temple activities to strengthen spiritual connection.",
     "about.feat2.title": "Community Service",
@@ -104,9 +109,13 @@ const translations: Record<Language, Record<string, string>> = {
     "members.role.treasurer": "Treasurer",
     "members.role.coordinator": "Event Coordinator",
     "members.notfound": "No members found matching your criteria.",
+    "members.member1.name": "Shri Ram Das",
     "members.member1.desc": "Leading the committee with a vision of spreading Hanuman ji's devotion across the nation.",
+    "members.member2.name": "Pandit Hari Om",
     "members.member2.desc": "Head of all spiritual ceremonies and aarti programs organized by the committee.",
+    "members.member3.name": "Rajiv Sharma",
     "members.member3.desc": "Managing committee funds and ensuring transparency in all charitable activities.",
+    "members.member4.name": "Vikram Singh",
     "members.member4.desc": "Orchestrating grand events, pushpavarsha, and bhandaras.",
 
     // Gallery Page
@@ -176,9 +185,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     "hero.trust": "श्रद्धालुओं एवं आध्यात्मिक समुदायों द्वारा विश्वसनीय",
     "hero.line1": "जय श्री राम",
-    "hero.line2": "हनुमान पुष्पवर्षा कमेटी",
+    "hero.line2": "हनुमान पुष्पवर्षा समिति",
     "hero.subtitle": "आध्यात्मिक आयोजनों, सेवा और भव्य पुष्पवर्षा उत्सवों के माध्यम से धर्म, भक्ति, संस्कृति और मानवता की सेवा।",
-    "hero.btn.join": "कमेटी से जुड़ें",
+    "hero.btn.join": "समिति से जुड़ें",
     "hero.btn.donate": "अभी दान करें",
 
     // Footer
@@ -197,7 +206,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // About Section
     "about.title": "हमारा उद्देश्य और दृष्टिकोण",
-    "about.p": "हनुमान पुष्पवर्षा कमेटी भक्ति को बढ़ावा देने, हमारी समृद्ध सांस्कृतिक विरासत को संरक्षित करने और मानवता की सेवा के लिए समर्पित है। श्री राम के प्रति भगवान हनुमान की अटूट भक्ति से प्रेरित होकर, हम आध्यात्मिक सभाओं, सामुदायिक सेवा और सांस्कृतिक संरक्षण के माध्यम से समाज में सकारात्मक बदलाव लाने का प्रयास करते हैं।",
+    "about.p": "हनुमान पुष्पवर्षा समिति भक्ति को बढ़ावा देने, हमारी समृद्ध सांस्कृतिक विरासत को संरक्षित करने और मानवता की सेवा के लिए समर्पित है। श्री राम के प्रति भगवान हनुमान की अटूट भक्ति से प्रेरित होकर, हम आध्यात्मिक सभाओं, सामुदायिक सेवा और सांस्कृतिक संरक्षण के माध्यम से समाज में सकारात्मक बदलाव लाने का प्रयास करते हैं।",
     "about.feat1.title": "धार्मिक योगदान",
     "about.feat1.desc": "आध्यात्मिक जुड़ाव को मजबूत करने के लिए भव्य आरती, पुष्पवर्षा और नियमित मंदिर गतिविधियों का आयोजन।",
     "about.feat2.title": "सामुदायिक सेवा",
