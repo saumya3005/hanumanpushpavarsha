@@ -20,6 +20,7 @@ const membersDict: Record<string, Record<string, string>> = {
     "members.role.treasurer": "Treasurer",
     "members.role.coordinator": "General Secretary",
     "members.role.minister": "Minister",
+    "members.role.executive": "Executive Members",
 
     "members.search": "Search members by name...",
 
@@ -51,6 +52,7 @@ const membersDict: Record<string, Record<string, string>> = {
     "members.role.treasurer": "कोषाध्यक्ष",
     "members.role.coordinator": "महामंत्री",
     "members.role.minister": "मंत्री",
+    "members.role.executive": "कार्यकारिणी सदस्य",
 
     "members.search": "सदस्य का नाम खोजें...",
 
@@ -120,8 +122,6 @@ const membersData = [
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
     descriptionKey: "members.desc.coordinator",
   },
-
-  // NEW MINISTER SECTION
   {
     id: "5",
     name: {
@@ -171,6 +171,7 @@ const roles = [
   "members.role.treasurer",
   "members.role.coordinator",
   "members.role.minister",
+  "members.role.executive",
 ];
 
 export default function MembersPage() {
@@ -183,6 +184,7 @@ export default function MembersPage() {
     return membersDict[language]?.[key] || membersDict["en"]?.[key] || key;
   };
 
+  // Filter Main Members
   const filteredMembers = membersData.filter((member) => {
     const memberName =
       language === "hi" ? member.name.hi : member.name.en;
@@ -193,7 +195,25 @@ export default function MembersPage() {
 
     const matchesRole =
       selectedRole === "members.role.all" ||
-      member.roleKey === selectedRole;
+        selectedRole === "members.role.executive"
+        ? selectedRole !== "members.role.executive"
+        : member.roleKey === selectedRole;
+
+    return matchesSearch && matchesRole;
+  });
+
+  // Filter Executive Members
+  const filteredExecutiveMembers = executiveMembers.filter((member) => {
+    const memberName =
+      language === "hi" ? member.hi : member.en;
+
+    const matchesSearch = memberName
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesRole =
+      selectedRole === "members.role.all" ||
+      selectedRole === "members.role.executive";
 
     return matchesSearch && matchesRole;
   });
@@ -245,49 +265,55 @@ export default function MembersPage() {
             </div>
 
             {/* Members Grid */}
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredMembers.map((member, index) => (
-                <MemberCard
-                  key={member.id}
-                  index={index}
-                  member={{
-                    ...member,
-                    name:
-                      language === "hi"
-                        ? member.name.hi
-                        : member.name.en,
-                    role: getTranslated(member.roleKey),
-                    description: getTranslated(member.descriptionKey),
-                  }}
-                />
-              ))}
-            </div>
-
-            {filteredMembers.length === 0 && (
-              <div className="text-center py-20 text-gray-400 font-body">
-                {getTranslated("members.empty")}
+            {selectedRole !== "members.role.executive" && (
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredMembers.map((member, index) => (
+                  <MemberCard
+                    key={member.id}
+                    index={index}
+                    member={{
+                      ...member,
+                      name:
+                        language === "hi"
+                          ? member.name.hi
+                          : member.name.en,
+                      role: getTranslated(member.roleKey),
+                      description: getTranslated(member.descriptionKey),
+                    }}
+                  />
+                ))}
               </div>
             )}
 
-            {/* Executive Members Section */}
-            <div className="mt-24">
-              <h2 className="mb-10 text-center font-heading text-3xl text-saffron">
-                {getTranslated("executive.title")}
-              </h2>
+            {/* Empty State */}
+            {filteredMembers.length === 0 &&
+              filteredExecutiveMembers.length === 0 && (
+                <div className="text-center py-20 text-gray-400 font-body">
+                  {getTranslated("members.empty")}
+                </div>
+              )}
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {executiveMembers.map((member, index) => (
-                  <div
-                    key={index}
-                    className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
-                  >
-                    <p className="font-body text-lg text-white">
-                      {language === "hi" ? member.hi : member.en}
-                    </p>
-                  </div>
-                ))}
+            {/* Executive Members Section */}
+            {filteredExecutiveMembers.length > 0 && (
+              <div className="mt-24">
+                <h2 className="mb-10 text-center font-heading text-3xl text-saffron">
+                  {getTranslated("executive.title")}
+                </h2>
+
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {filteredExecutiveMembers.map((member, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
+                    >
+                      <p className="font-body text-lg text-white">
+                        {language === "hi" ? member.hi : member.en}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
           </div>
         </Section>
