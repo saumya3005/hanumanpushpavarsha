@@ -12,12 +12,14 @@ import { useLanguage } from "@/lib/language-context";
 const membersDict: Record<string, Record<string, string>> = {
   en: {
     "members.title": "Committee Members",
+    "executive.title": "Executive Members",
 
     "members.role.all": "All",
     "members.role.president": "President",
-    "members.role.priest": "Chief Priest",
+    "members.role.priest": "Vice President",
     "members.role.treasurer": "Treasurer",
-    "members.role.coordinator": "Event Coordinator",
+    "members.role.coordinator": "General Secretary",
+    "members.role.minister": "Minister",
 
     "members.search": "Search members by name...",
 
@@ -27,23 +29,28 @@ const membersDict: Record<string, Record<string, string>> = {
       "Leading the committee with a vision of spreading Hanuman ji's devotion across the nation.",
 
     "members.desc.priest":
-      "Head of all spiritual ceremonies and aarti programs organized by the committee.",
+      "Supporting all committee activities and spiritual events.",
 
     "members.desc.treasurer":
       "Managing committee funds and ensuring transparency in all charitable activities.",
 
     "members.desc.coordinator":
       "Orchestrating grand events, pushpavarsha, and bhandaras.",
+
+    "members.desc.minister":
+      "Actively contributing to committee management and public coordination.",
   },
 
   hi: {
     "members.title": "समिति सदस्य",
+    "executive.title": "कार्यकारिणी सदस्य",
 
     "members.role.all": "सभी",
     "members.role.president": "अध्यक्ष",
-    "members.role.priest": "मुख्य पुजारी",
+    "members.role.priest": "उपाध्यक्ष",
     "members.role.treasurer": "कोषाध्यक्ष",
-    "members.role.coordinator": "कार्यक्रम संयोजक",
+    "members.role.coordinator": "महामंत्री",
+    "members.role.minister": "मंत्री",
 
     "members.search": "सदस्य का नाम खोजें...",
 
@@ -53,17 +60,20 @@ const membersDict: Record<string, Record<string, string>> = {
       "हनुमान जी की भक्ति को पूरे देश में फैलाने के उद्देश्य से समिति का नेतृत्व कर रहे हैं।",
 
     "members.desc.priest":
-      "समिति द्वारा आयोजित सभी धार्मिक अनुष्ठानों और आरती कार्यक्रमों के प्रमुख।",
+      "समिति के सभी कार्यक्रमों एवं धार्मिक आयोजनों में सहयोग प्रदान करते हैं।",
 
     "members.desc.treasurer":
       "समिति के धन का प्रबंधन और सभी सेवा कार्यों में पारदर्शिता सुनिश्चित करना।",
 
     "members.desc.coordinator":
       "भव्य आयोजनों, पुष्पवर्षा और भंडारों का संचालन।",
+
+    "members.desc.minister":
+      "समिति संचालन एवं जनसमन्वय में सक्रिय योगदान।",
   },
 };
 
-// Members Data
+// Main Members Data
 const membersData = [
   {
     id: "1",
@@ -74,14 +84,14 @@ const membersData = [
     roleKey: "members.role.president",
     image: "https://i.postimg.cc/XvFW5MQh/papa-hpvc.jpg",
     descriptionKey: "members.desc.president",
-    phone: "+91 9876543210",
+    phone: "+91 9415236933",
     socials: { facebook: "#" },
   },
   {
     id: "2",
     name: {
-      en: "Pandit Hari Om",
-      hi: "पंडित हरि ओम",
+      en: "Lal Bahadur",
+      hi: "लाल बहादुर",
     },
     roleKey: "members.role.priest",
     image:
@@ -91,8 +101,8 @@ const membersData = [
   {
     id: "3",
     name: {
-      en: "Rajiv Sharma",
-      hi: "राजीव शर्मा",
+      en: "Umesh Chandra Gupta (Chappu)",
+      hi: "उमेश चंद्र गुप्ता (चप्पू)",
     },
     roleKey: "members.role.treasurer",
     image:
@@ -102,13 +112,54 @@ const membersData = [
   {
     id: "4",
     name: {
-      en: "Vikram Singh",
-      hi: "विक्रम सिंह",
+      en: "Sanju Gupta",
+      hi: "संजू गुप्ता",
     },
     roleKey: "members.role.coordinator",
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
     descriptionKey: "members.desc.coordinator",
+  },
+
+  // NEW MINISTER SECTION
+  {
+    id: "5",
+    name: {
+      en: "Rishuraj Gupta (Sundar)",
+      hi: "ऋषुराज गुप्ता (सुंदर)",
+    },
+    roleKey: "members.role.minister",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+    descriptionKey: "members.desc.minister",
+  },
+];
+
+// Executive Members List
+const executiveMembers = [
+  {
+    en: "Amit Gupta",
+    hi: "अमित गुप्ता",
+  },
+  {
+    en: "Ravi Tiwari",
+    hi: "रवि तिवारी",
+  },
+  {
+    en: "Pankaj Sharma",
+    hi: "पंकज शर्मा",
+  },
+  {
+    en: "Deepak Gupta",
+    hi: "दीपक गुप्ता",
+  },
+  {
+    en: "Ankit Mishra",
+    hi: "अंकित मिश्रा",
+  },
+  {
+    en: "Manoj Gupta",
+    hi: "मनोज गुप्ता",
   },
 ];
 
@@ -119,6 +170,7 @@ const roles = [
   "members.role.priest",
   "members.role.treasurer",
   "members.role.coordinator",
+  "members.role.minister",
 ];
 
 export default function MembersPage() {
@@ -182,8 +234,8 @@ export default function MembersPage() {
                     key={role}
                     onClick={() => setSelectedRole(role)}
                     className={`rounded-full px-4 py-2 font-body text-sm font-medium transition-all ${selectedRole === role
-                        ? "bg-saffron text-white shadow-[0_0_10px_rgba(255,153,51,0.5)]"
-                        : "bg-temple-card border border-gray-800 text-gray-300 hover:border-saffron/50"
+                      ? "bg-saffron text-white shadow-[0_0_10px_rgba(255,153,51,0.5)]"
+                      : "bg-temple-card border border-gray-800 text-gray-300 hover:border-saffron/50"
                       }`}
                   >
                     {getTranslated(role)}
@@ -216,6 +268,26 @@ export default function MembersPage() {
                 {getTranslated("members.empty")}
               </div>
             )}
+
+            {/* Executive Members Section */}
+            <div className="mt-24">
+              <h2 className="mb-10 text-center font-heading text-3xl text-saffron">
+                {getTranslated("executive.title")}
+              </h2>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {executiveMembers.map((member, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
+                  >
+                    <p className="font-body text-lg text-white">
+                      {language === "hi" ? member.hi : member.en}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
           </div>
         </Section>
