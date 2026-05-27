@@ -82,7 +82,7 @@ export default function JoinPage() {
         <SpiritualBackground />
       </div>
 
-      <div className="relative z-10 flex-grow pt-32">
+      <div className="relative z-10 grow pt-32">
         <Section title="Join the Committee">
           <div className="mx-auto max-w-3xl">
             <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 md:p-12 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
