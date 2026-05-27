@@ -48,12 +48,16 @@ const translations: Record<Language, Record<string, string>> = {
 
     // About Section
     "about.title": "Our Mission & Vision",
-    "about.p": `🇬🇧 English Version
+    "about.p": `
 Hanuman Pushpa Varsha Committee, Prayagraj
 (Established – 1954)
+
 On the sacred occasion of Dussehra, this divine tradition held at Sulaki Chauraha, Prayagraj, has been a symbol of faith and devotion for decades.
+
 During the days of Dussehra, Lord Hanuman performs daily Pushpa Varsha (flower shower), which is considered a blessing for all devotees.
-The highlight of this tradition is the two special days when Lord Hanuman performs the grand Aarti, creating a truly divine and unforgettable experience for every devotee.`,
+
+The highlight of this tradition is the two special days when Lord Hanuman performs the grand Aarti, creating a truly divine and unforgettable experience for every devotee.
+`,
     "about.feat1.title": "Religious Contribution",
     "about.feat1.desc": "Organizing grand aartis, pushpavarsha, and regular temple activities to strengthen spiritual connection.",
     "about.feat2.title": "Community Service",
@@ -206,7 +210,16 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
 
     // About Section
     "about.title": "हमारा उद्देश्य और दृष्टिकोण",
-    "about.p": "हनुमान पुष्पवर्षा समिति भक्ति को बढ़ावा देने, हमारी समृद्ध सांस्कृतिक विरासत को संरक्षित करने और मानवता की सेवा के लिए समर्पित है। श्री राम के प्रति भगवान हनुमान की अटूट भक्ति से प्रेरित होकर, हम आध्यात्मिक सभाओं, सामुदायिक सेवा और सांस्कृतिक संरक्षण के माध्यम से समाज में सकारात्मक बदलाव लाने का प्रयास करते हैं।",
+    "about.p": `
+हनुमान पुष्प वर्षा कमेटी, प्रयागराज
+(स्थापना – 1954)
+
+दशहरा के पावन अवसर पर सुलाकी चौराहा, प्रयागराज में आयोजित यह दिव्य परंपरा वर्षों से आस्था और भक्ति का प्रतीक बनी हुई है।
+
+दशहरा के दिनों में हनुमान जी द्वारा प्रतिदिन भव्य पुष्प वर्षा की जाती है, जो श्रद्धालुओं के लिए आशीर्वाद का रूप है।
+
+इस परंपरा का विशेष आकर्षण वे दो दिन होते हैं, जब हनुमान जी द्वारा भव्य आरती की जाती है, जो हर भक्त के लिए एक अद्भुत और दिव्य अनुभव होता है।
+`,
     "about.feat1.title": "धार्मिक योगदान",
     "about.feat1.desc": "आध्यात्मिक जुड़ाव को मजबूत करने के लिए भव्य आरती, पुष्पवर्षा और नियमित मंदिर गतिविधियों का आयोजन।",
     "about.feat2.title": "सामुदायिक सेवा",
