@@ -121,7 +121,7 @@ export default function DonationPage() {
         <div className="fixed inset-0 z-0">
           <SpiritualBackground />
         </div>
-        <div className="relative z-10 flex-grow pt-32 flex items-center justify-center">
+        <div className="relative z-10 grow pt-32 flex items-center justify-center">
           <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 md:p-12 shadow-[0_0_30px_rgba(255,153,51,0.1)] text-center max-w-lg mx-auto">
             <div className="flex justify-center mb-6">
               <CheckCircle2 className="w-20 h-20 text-green-500" />
@@ -158,7 +158,7 @@ export default function DonationPage() {
         <SpiritualBackground />
       </div>
 
-      <div className="relative z-10 flex-grow pt-32 pb-20">
+      <div className="relative z-10 grow pt-32 pb-20">
         <Section title="Make a Divine Offering">
           <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-12">
             
@@ -228,7 +228,7 @@ export default function DonationPage() {
 
             {/* Payment Section */}
             <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 flex flex-col items-center justify-center text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-saffron/5 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-br from-saffron/5 to-transparent pointer-events-none" />
               
               <div className="flex flex-col items-center w-full relative z-10">
                 <div className="w-24 h-24 rounded-full bg-saffron/10 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,153,51,0.2)]">
