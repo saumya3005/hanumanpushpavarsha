@@ -13,6 +13,10 @@ const navLinks = [
   { key: "nav.about", href: "/#about" },
   { key: "nav.history", href: "/history" },
   { key: "nav.members", href: "/members" },
+
+  // COMMUNITY MEMBERS PAGE
+  { key: "Community Members", href: "/members/community" },
+
   { key: "nav.gallery", href: "/gallery" },
   { key: "nav.live", href: "/live" },
   { key: "nav.join", href: "/join" },
@@ -21,6 +25,7 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
 
@@ -28,7 +33,9 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -40,19 +47,20 @@ export function Navbar() {
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "bg-black/80 backdrop-blur-md border-b border-saffron/20 py-4 shadow-lg shadow-black/50"
+          ? "border-b border-saffron/20 bg-black/80 py-4 backdrop-blur-md shadow-lg shadow-black/50"
           : "bg-transparent py-6"
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-saffron to-gold p-0.5 shadow-[0_0_15px_rgba(255,153,51,0.5)] transition-transform group-hover:scale-105">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-saffron to-gold p-0.5 shadow-[0_0_15px_rgba(255,153,51,0.5)] transition-transform group-hover:scale-105">
             <div className="flex h-full w-full items-center justify-center rounded-full bg-black font-hindi text-xl text-saffron">
               ॐ
             </div>
           </div>
-          <span className="font-spiritual text-xl font-bold tracking-wider text-white transition-colors group-hover:text-saffron hidden sm:block">
+
+          <span className="hidden font-spiritual text-xl font-bold tracking-wider text-white transition-colors group-hover:text-saffron sm:block">
             {t("footer.title")}
           </span>
         </Link>
@@ -68,16 +76,18 @@ export function Navbar() {
                 pathname === link.href ? "text-saffron" : "text-gray-300"
               )}
             >
-              {t(link.key)}
+              {link.key.startsWith("nav.")
+                ? t(link.key)
+                : link.key}
             </Link>
           ))}
 
-          {/* Language Toggle Switch */}
-          <div className="flex items-center gap-1 bg-black/40 border border-saffron/20 rounded-full p-0.5 ml-2 font-body text-xs">
+          {/* Language Toggle */}
+          <div className="ml-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">
             <button
               onClick={() => setLanguage("en")}
               className={cn(
-                "px-2.5 py-1 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                "cursor-pointer rounded-full px-2.5 py-1 font-semibold transition-all duration-300",
                 language === "en"
                   ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
                   : "text-gray-400 hover:text-white"
@@ -85,10 +95,11 @@ export function Navbar() {
             >
               EN
             </button>
+
             <button
               onClick={() => setLanguage("hi")}
               className={cn(
-                "px-2.5 py-1 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                "cursor-pointer rounded-full px-2.5 py-1 font-semibold transition-all duration-300",
                 language === "hi"
                   ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
                   : "text-gray-400 hover:text-white"
@@ -98,11 +109,13 @@ export function Navbar() {
             </button>
           </div>
 
+          {/* Donate Button */}
           <Link
             href="/donation"
             className="flex items-center gap-2 rounded-full border border-saffron/50 bg-saffron/10 px-5 py-2 font-body text-sm font-semibold text-saffron transition-all hover:bg-saffron hover:text-white"
           >
-            {t("nav.donate")} <Heart className="h-4 w-4" />
+            {t("nav.donate")}
+            <Heart className="h-4 w-4" />
           </Link>
         </nav>
 
@@ -111,11 +124,15 @@ export function Navbar() {
           className="text-white lg:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isMobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Navigation */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.nav
@@ -132,16 +149,18 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-spiritual text-lg text-gray-300 hover:text-saffron"
                 >
-                  {t(link.key)}
+                  {link.key.startsWith("nav.")
+                    ? t(link.key)
+                    : link.key}
                 </Link>
               ))}
 
               {/* Mobile Language Toggle */}
-              <div className="flex items-center gap-1 bg-black/40 border border-saffron/20 rounded-full p-0.5 my-2 font-body text-xs">
+              <div className="my-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">
                 <button
                   onClick={() => setLanguage("en")}
                   className={cn(
-                    "px-4 py-1.5 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                    "cursor-pointer rounded-full px-4 py-1.5 font-semibold transition-all duration-300",
                     language === "en"
                       ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
                       : "text-gray-400 hover:text-white"
@@ -149,10 +168,11 @@ export function Navbar() {
                 >
                   English
                 </button>
+
                 <button
                   onClick={() => setLanguage("hi")}
                   className={cn(
-                    "px-4 py-1.5 font-semibold rounded-full transition-all duration-300 cursor-pointer",
+                    "cursor-pointer rounded-full px-4 py-1.5 font-semibold transition-all duration-300",
                     language === "hi"
                       ? "bg-saffron text-black shadow-[0_0_8px_rgba(255,153,51,0.4)]"
                       : "text-gray-400 hover:text-white"
@@ -162,12 +182,14 @@ export function Navbar() {
                 </button>
               </div>
 
+              {/* Mobile Donate Button */}
               <Link
                 href="/donation"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 rounded-full bg-saffron px-8 py-3 font-body font-semibold text-white"
               >
-                {t("hero.btn.donate")} <Heart className="h-4 w-4" />
+                {t("hero.btn.donate")}
+                <Heart className="h-4 w-4" />
               </Link>
             </div>
           </motion.nav>
@@ -176,4 +198,3 @@ export function Navbar() {
     </motion.header>
   );
 }
-
