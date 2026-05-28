@@ -246,7 +246,7 @@ export default function GalleryPage() {
               coverImage: images.length > 0 ? images[0].src : "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
               images: images
             };
-          });
+          }).filter(album => album.images.length > 0);
           setAlbumsData(formatted);
         }
       } catch (err: any) {

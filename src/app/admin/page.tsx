@@ -18,7 +18,7 @@ export default function AdminPage() {
     const [password, setPassword] = useState("");
     const [authError, setAuthError] = useState("");
     const [authLoading, setAuthLoading] = useState(false);
-    
+
     const [activeModule, setActiveModule] = useState<string | null>(null);
 
     // Live Event specific state
@@ -86,7 +86,7 @@ export default function AdminPage() {
         e.preventDefault();
         setAuthLoading(true);
         setAuthError("");
-        
+
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
@@ -115,15 +115,31 @@ export default function AdminPage() {
         setMembersLoading(false);
     };
 
-    const handleUpdateMemberStatus = async (id: string, newStatus: string) => {
+    const handleUpdateMemberStatus = async (
+        id: string,
+        newStatus: string
+    ) => {
         setMembersError("");
         setMembersSuccess("");
-        const { error } = await supabase.from("join_members").update({ status: newStatus }).eq("id", id);
+
+        const { error } = await supabase
+            .from("join_members")
+            .update({
+                member_status: newStatus,
+            })
+            .eq("id", id);
+
         if (error) {
-            console.error("Supabase update error (join_members status):", error);
+            console.error(
+                "Supabase update error (join_members status):",
+                error
+            );
             setMembersError(error.message);
         } else {
-            setMembersSuccess(`Member status updated to ${newStatus}.`);
+            setMembersSuccess(
+                `Member status updated to ${newStatus}.`
+            );
+
             fetchMembers();
         }
     };
@@ -144,12 +160,12 @@ export default function AdminPage() {
     const handleDeleteMember = async (member: any) => {
         setMembersError("");
         setMembersSuccess("");
-        
+
         if (member.photo_path) {
             const { error: storageError } = await supabase.storage.from("member-photos").remove([member.photo_path]);
             if (storageError) console.error("Supabase storage remove error:", storageError);
         }
-        
+
         const { error } = await supabase.from("join_members").delete().eq("id", member.id);
         if (error) {
             console.error("Supabase delete error (join_members):", error);
@@ -184,7 +200,7 @@ export default function AdminPage() {
             setLiveDescription(data.description || "");
             setLiveUrl(data.live_url || "");
             setIsLive(data.is_live || false);
-            
+
             if (data.live_url?.includes("instagram.com")) setLivePlatform("instagram");
             else if (data.live_url?.includes("facebook.com")) setLivePlatform("facebook");
             else setLivePlatform("youtube");
@@ -213,7 +229,7 @@ export default function AdminPage() {
             const { data, error } = await supabase.from("live_event_settings").insert([payload]).select().single();
             if (error) setLiveError(error.message);
             else {
-                if(data) setLiveEventId(data.id);
+                if (data) setLiveEventId(data.id);
                 setLiveSuccess("Live event settings created successfully.");
             }
         }
@@ -269,7 +285,7 @@ export default function AdminPage() {
         setUploading(true);
         setGalleryError("");
         setGallerySuccess("");
-        
+
         let successCount = 0;
         let failCount = 0;
 
@@ -277,26 +293,26 @@ export default function AdminPage() {
             const fileExt = file.name.split('.').pop();
             const safeName = Math.random().toString(36).substring(2, 15);
             const fileName = `${Date.now()}-${safeName}.${fileExt}`;
-            
+
             const { error: uploadError } = await supabase.storage.from("gallery-photos").upload(fileName, file);
-            
+
             if (uploadError) {
                 console.error("Supabase storage upload error:", uploadError);
                 setGalleryError(uploadError.message);
                 failCount++;
                 continue;
             }
-            
+
             const { data } = supabase.storage.from("gallery-photos").getPublicUrl(fileName);
-            
+
             if (data?.publicUrl) {
-                const { error: dbError } = await supabase.from("gallery_photos").insert([{ 
-                    album_id: selectedAlbum.id, 
+                const { error: dbError } = await supabase.from("gallery_photos").insert([{
+                    album_id: selectedAlbum.id,
                     image_url: data.publicUrl,
                     image_path: fileName,
                     caption: ""
                 }]);
-                
+
                 if (dbError) {
                     console.error("Supabase insert error (gallery_photos):", dbError);
                     setGalleryError(dbError.message);
@@ -306,17 +322,17 @@ export default function AdminPage() {
                 }
             }
         }
-        
+
         if (successCount > 0) {
             setGallerySuccess(`Successfully uploaded ${successCount} photo(s).`);
         }
         if (failCount > 0) {
             setGalleryError(prev => prev + ` (Failed to upload ${failCount} photo(s))`);
         }
-        
+
         setUploading(false);
         fetchPhotos(selectedAlbum.id);
-        
+
         // Reset file input
         e.target.value = '';
     };
@@ -324,13 +340,13 @@ export default function AdminPage() {
     const handleDeletePhoto = async (photo: any) => {
         setGalleryError("");
         setGallerySuccess("");
-        
+
         let fileName = photo.image_path;
         if (!fileName) {
             const urlParts = photo.image_url.split("/");
             fileName = urlParts[urlParts.length - 1];
         }
-        
+
         const { error: storageError } = await supabase.storage.from("gallery-photos").remove([fileName]);
         if (storageError) {
             console.error("Supabase storage remove error:", storageError);
@@ -339,7 +355,7 @@ export default function AdminPage() {
         }
 
         const { error: dbError } = await supabase.from("gallery_photos").delete().eq("id", photo.id);
-        
+
         if (dbError) {
             console.error("Supabase delete error (gallery_photos):", dbError);
             setGalleryError(dbError.message);
@@ -347,6 +363,40 @@ export default function AdminPage() {
             setGallerySuccess("Photo deleted successfully.");
             fetchPhotos(selectedAlbum.id);
         }
+    };
+
+    const handleDeleteAlbum = async (album: any) => {
+        if (!confirm(`Are you sure you want to delete the empty album "${album.title}"?`)) return;
+        
+        setGalleryError("");
+        setGallerySuccess("");
+        
+        const { data: albumPhotos, error: fetchPhotosError } = await supabase.from("gallery_photos").select("id").eq("album_id", album.id);
+        
+        if (fetchPhotosError) {
+            console.error("Supabase fetch error (gallery_photos):", fetchPhotosError);
+            setGalleryError(fetchPhotosError.message);
+            return;
+        }
+
+        if (albumPhotos && albumPhotos.length > 0) {
+            setGalleryError("Please delete all photos first before deleting the album.");
+            return;
+        }
+        
+        const { error: deleteAlbumError } = await supabase.from("gallery_albums").delete().eq("id", album.id);
+        if (deleteAlbumError) {
+            console.error("Supabase delete error (gallery_albums):", deleteAlbumError);
+            setGalleryError(deleteAlbumError.message);
+            return;
+        }
+        
+        setGallerySuccess("Empty album deleted successfully.");
+        if (selectedAlbum?.id === album.id) {
+            setSelectedAlbum(null);
+            setPhotos([]);
+        }
+        fetchAlbums();
     };
 
     if (loading) {
@@ -364,7 +414,7 @@ export default function AdminPage() {
                     <h1 className="mb-6 text-center text-3xl font-bold text-orange-500">
                         Admin Login
                     </h1>
-                    
+
                     {authError && (
                         <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
                             {authError}
@@ -480,7 +530,7 @@ export default function AdminPage() {
                                 {gallerySuccess}
                             </div>
                         )}
-                        
+
                         <div className="grid gap-8 lg:grid-cols-3">
                             <div className="lg:col-span-1 space-y-6">
                                 <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg">
@@ -521,17 +571,25 @@ export default function AdminPage() {
                                     <h3 className="text-xl font-bold text-white mb-4">Albums</h3>
                                     <div className="space-y-2">
                                         {albums.map((album) => (
-                                            <button
-                                                key={album.id}
-                                                onClick={() => {
-                                                    setSelectedAlbum(album);
-                                                    fetchPhotos(album.id);
-                                                }}
-                                                className={`w-full text-left px-4 py-3 rounded-lg border transition ${selectedAlbum?.id === album.id ? "bg-orange-500/20 border-orange-500 text-orange-400" : "bg-black border-zinc-800 text-gray-400 hover:border-gray-500"}`}
-                                            >
-                                                <div className="font-semibold">{album.title}</div>
-                                                <div className="text-xs opacity-75">{album.year}</div>
-                                            </button>
+                                            <div key={album.id} className="relative group flex flex-col">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedAlbum(album);
+                                                        fetchPhotos(album.id);
+                                                    }}
+                                                    className={`w-full text-left px-4 py-3 rounded-lg border transition pr-10 ${selectedAlbum?.id === album.id ? "bg-orange-500/20 border-orange-500 text-orange-400" : "bg-black border-zinc-800 text-gray-400 hover:border-gray-500"}`}
+                                                >
+                                                    <div className="font-semibold">{album.title}</div>
+                                                    <div className="text-xs opacity-75">{album.year}</div>
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteAlbum(album)}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-500 hover:text-red-500 bg-transparent hover:bg-red-500/10 rounded-md transition"
+                                                    title="Delete Album"
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
                                         ))}
                                         {albums.length === 0 && <div className="text-sm text-gray-500">No albums found.</div>}
                                     </div>
@@ -588,7 +646,7 @@ export default function AdminPage() {
                         </div>
                     </div>
                 )}
-                
+
                 {activeModule === "Live Event Control" && (
                     <div className="space-y-8">
                         {liveError && (
@@ -601,7 +659,7 @@ export default function AdminPage() {
                                 {liveSuccess}
                             </div>
                         )}
-                        
+
                         <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg max-w-2xl mx-auto">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-xl font-bold text-white">Live Status</h3>
@@ -613,7 +671,7 @@ export default function AdminPage() {
                                     {isLive ? 'LIVE NOW' : 'OFFLINE'}
                                 </button>
                             </div>
-                            
+
                             <form onSubmit={handleSaveLiveSettings} className="space-y-6">
                                 <div>
                                     <label className="block text-sm text-gray-400 mb-1">Live Stream Title</label>
@@ -678,7 +736,7 @@ export default function AdminPage() {
                         </div>
                     </div>
                 )}
-                
+
                 {activeModule === "Members Management" && (
                     <div className="space-y-6">
                         {membersError && (
@@ -691,7 +749,7 @@ export default function AdminPage() {
                                 {membersSuccess}
                             </div>
                         )}
-                        
+
                         <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
                             <input
                                 type="text"
@@ -724,53 +782,52 @@ export default function AdminPage() {
                                         const initials = displayName.substring(0, 2).toUpperCase();
 
                                         return (
-                                        <div key={member.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg flex flex-col gap-4">
-                                            <div className="flex items-start gap-4">
-                                                {member.photo_url ? (
-                                                    <img src={member.photo_url} alt={displayName} className="w-16 h-16 rounded-full object-cover border border-zinc-800" />
-                                                ) : (
-                                                    <div className="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-gray-500 text-xl font-bold tracking-widest">
-                                                        {initials}
+                                            <div key={member.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg flex flex-col gap-4">
+                                                <div className="flex items-start gap-4">
+                                                    {member.photo_url ? (
+                                                        <img src={member.photo_url} alt={displayName} className="w-16 h-16 rounded-full object-cover border border-zinc-800" />
+                                                    ) : (
+                                                        <div className="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-gray-500 text-xl font-bold tracking-widest">
+                                                            {initials}
+                                                        </div>
+                                                    )}
+                                                    <div className="grow">
+                                                        <h3 className="text-lg font-bold text-white leading-tight">
+                                                            {displayName}
+                                                        </h3>
+                                                        <p className="text-xs text-gray-400 mt-1">{member.city || 'N/A'}, {member.state || 'N/A'}</p>
                                                     </div>
-                                                )}
-                                                <div className="grow">
-                                                    <h3 className="text-lg font-bold text-white leading-tight">
-                                                        {displayName}
-                                                    </h3>
-                                                    <p className="text-xs text-gray-400 mt-1">{member.city || 'N/A'}, {member.state || 'N/A'}</p>
+                                                </div>
+                                                <div className="text-sm text-gray-300 space-y-1">
+                                                    <div><span className="text-gray-500">Email:</span> {member.email || 'N/A'}</div>
+                                                    <div><span className="text-gray-500">Phone:</span> {displayPhone}</div>
+                                                    <div><span className="text-gray-500">Payment:</span> <span className={displayPaymentStatus.toLowerCase() === "completed" ? "text-green-400" : "text-yellow-400"}>{displayPaymentStatus}</span></div>
+                                                    <div>
+                                                        <span className="text-gray-500">Status:</span>
+                                                        <span className={`ml-2 px-2 py-0.5 rounded text-xs font-semibold ${displayStatus.toLowerCase() === 'approved' ? 'bg-green-500/20 text-green-400' :
+                                                                displayStatus.toLowerCase() === 'rejected' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
+                                                            }`}>
+                                                            {displayStatus.toUpperCase()}
+                                                        </span>
+                                                    </div>
+                                                    {member.is_lead_member && (
+                                                        <div className="mt-2 text-saffron font-bold text-xs">LEAD MEMBER</div>
+                                                    )}
+                                                </div>
+
+                                                <div className="mt-auto border-t border-zinc-800 pt-4 flex flex-wrap gap-2">
+                                                    {displayStatus.toLowerCase() !== 'approved' && (
+                                                        <button onClick={() => handleUpdateMemberStatus(member.id, 'approved')} className="px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white rounded text-xs transition">Approve</button>
+                                                    )}
+                                                    {displayStatus.toLowerCase() !== 'rejected' && (
+                                                        <button onClick={() => handleUpdateMemberStatus(member.id, 'rejected')} className="px-3 py-1 bg-zinc-800 text-gray-300 hover:bg-zinc-700 rounded text-xs transition">Reject</button>
+                                                    )}
+                                                    <button onClick={() => handleToggleLeadMember(member.id, !member.is_lead_member)} className="px-3 py-1 bg-zinc-800 text-saffron hover:bg-zinc-700 rounded text-xs transition">
+                                                        {member.is_lead_member ? 'Remove Lead' : 'Make Lead'}
+                                                    </button>
+                                                    <button onClick={() => handleDeleteMember(member)} className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white rounded text-xs transition ml-auto">Delete</button>
                                                 </div>
                                             </div>
-                                            <div className="text-sm text-gray-300 space-y-1">
-                                                <div><span className="text-gray-500">Email:</span> {member.email || 'N/A'}</div>
-                                                <div><span className="text-gray-500">Phone:</span> {displayPhone}</div>
-                                                <div><span className="text-gray-500">Payment:</span> <span className={displayPaymentStatus.toLowerCase() === "completed" ? "text-green-400" : "text-yellow-400"}>{displayPaymentStatus}</span></div>
-                                                <div>
-                                                    <span className="text-gray-500">Status:</span> 
-                                                    <span className={`ml-2 px-2 py-0.5 rounded text-xs font-semibold ${
-                                                        displayStatus.toLowerCase() === 'approved' ? 'bg-green-500/20 text-green-400' : 
-                                                        displayStatus.toLowerCase() === 'rejected' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
-                                                    }`}>
-                                                        {displayStatus.toUpperCase()}
-                                                    </span>
-                                                </div>
-                                            {member.is_lead_member && (
-                                                <div className="mt-2 text-saffron font-bold text-xs">LEAD MEMBER</div>
-                                            )}
-                                        </div>
-
-                                        <div className="mt-auto border-t border-zinc-800 pt-4 flex flex-wrap gap-2">
-                                            {displayStatus.toLowerCase() !== 'approved' && (
-                                                <button onClick={() => handleUpdateMemberStatus(member.id, 'approved')} className="px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white rounded text-xs transition">Approve</button>
-                                            )}
-                                            {displayStatus.toLowerCase() !== 'rejected' && (
-                                                <button onClick={() => handleUpdateMemberStatus(member.id, 'rejected')} className="px-3 py-1 bg-zinc-800 text-gray-300 hover:bg-zinc-700 rounded text-xs transition">Reject</button>
-                                            )}
-                                            <button onClick={() => handleToggleLeadMember(member.id, !member.is_lead_member)} className="px-3 py-1 bg-zinc-800 text-saffron hover:bg-zinc-700 rounded text-xs transition">
-                                                {member.is_lead_member ? 'Remove Lead' : 'Make Lead'}
-                                            </button>
-                                            <button onClick={() => handleDeleteMember(member)} className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white rounded text-xs transition ml-auto">Delete</button>
-                                        </div>
-                                    </div>
                                         );
                                     })}
                                 {members.length === 0 && <div className="col-span-full text-center py-8 text-gray-500">No members found.</div>}
@@ -778,7 +835,7 @@ export default function AdminPage() {
                         )}
                     </div>
                 )}
-                
+
                 {activeModule === "Donation Records" && (
                     <div className="space-y-6">
                         {donationsError && (
@@ -844,31 +901,31 @@ export default function AdminPage() {
                                                 const displayOrderId = donation.razorpay_order_id || donation.order_id || "-";
 
                                                 return (
-                                                <tr key={donation.id} className="hover:bg-zinc-900/50 transition-colors">
-                                                    <td className="px-6 py-4">
-                                                        <div className="font-bold text-white mb-1">{displayName}</div>
-                                                        <div className="text-xs text-gray-500">{donation.email || 'N/A'}</div>
-                                                        <div className="text-xs text-gray-500">{displayPhone}</div>
-                                                    </td>
-                                                    <td className="px-6 py-4 font-bold text-saffron">₹{(Number(donation.amount) || 0).toLocaleString()}</td>
-                                                    <td className="px-6 py-4">
-                                                        <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                                                            displayPaymentStatus.toLowerCase() === 'completed' ? 'bg-green-500/20 text-green-400' : 
-                                                            displayPaymentStatus.toLowerCase() === 'failed' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
-                                                        }`}>
-                                                            {displayPaymentStatus.toUpperCase()}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        <div className="text-xs text-gray-400 break-all">{displayPayId}</div>
-                                                        <div className="text-xs text-gray-600 break-all mt-1">{displayOrderId}</div>
-                                                    </td>
-                                                    <td className="px-6 py-4 text-gray-400 text-xs">
-                                                        {new Date(donation.created_at).toLocaleDateString()} <br/>
-                                                        {new Date(donation.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                    </td>
-                                                </tr>
-                                            )})}
+                                                    <tr key={donation.id} className="hover:bg-zinc-900/50 transition-colors">
+                                                        <td className="px-6 py-4">
+                                                            <div className="font-bold text-white mb-1">{displayName}</div>
+                                                            <div className="text-xs text-gray-500">{donation.email || 'N/A'}</div>
+                                                            <div className="text-xs text-gray-500">{displayPhone}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 font-bold text-saffron">₹{(Number(donation.amount) || 0).toLocaleString()}</td>
+                                                        <td className="px-6 py-4">
+                                                            <span className={`px-2 py-1 rounded text-xs font-semibold ${displayPaymentStatus.toLowerCase() === 'completed' ? 'bg-green-500/20 text-green-400' :
+                                                                    displayPaymentStatus.toLowerCase() === 'failed' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
+                                                                }`}>
+                                                                {displayPaymentStatus.toUpperCase()}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="text-xs text-gray-400 break-all">{displayPayId}</div>
+                                                            <div className="text-xs text-gray-600 break-all mt-1">{displayOrderId}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-gray-400 text-xs">
+                                                            {new Date(donation.created_at).toLocaleDateString()} <br />
+                                                            {new Date(donation.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
                                         {donations.length === 0 && (
                                             <tr>
                                                 <td colSpan={5} className="px-6 py-8 text-center text-gray-500">No donation records found.</td>
@@ -880,7 +937,7 @@ export default function AdminPage() {
                         )}
                     </div>
                 )}
-                
+
                 {activeModule && activeModule !== "Gallery Management" && activeModule !== "Live Event Control" && activeModule !== "Members Management" && activeModule !== "Donation Records" && (
                     <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-12 shadow-lg text-center">
                         <p className="text-gray-400">The {activeModule} module is currently under development.</p>
