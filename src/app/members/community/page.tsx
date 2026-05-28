@@ -46,20 +46,32 @@ export default function CommunityMembersPage() {
             const { data, error } = await supabase
                 .from("join_members")
                 .select("*")
-                .neq("is_lead_member", true)
-                .not("razorpay_payment_id", "is", null);
+                .eq("is_lead_member", false)
+                .not("razorpay_payment_id", "is", null)
+                .eq("member_status", "approved");
 
             if (error) {
                 console.error("Community members fetch error:", error);
                 return;
             }
 
+            const approvedData = data?.filter((m: any) => {
+                const currentStatus = (
+                    m.member_status ||
+                    m.status ||
+                    "pending"
+                ).toLowerCase();
+
+                return currentStatus === "approved";
+            });
+
             const mappedMembers =
-                data?.map((member: any) => ({
+                approvedData?.map((member: any) => ({
                     id: member.id,
 
                     name:
                         member.full_name ||
+                        `${member.first_name || ""} ${member.last_name || ""}`.trim() ||
                         getTranslated("community.defaultRole"),
 
                     role:
@@ -77,7 +89,7 @@ export default function CommunityMembersPage() {
                             .join(", ") ||
                         getTranslated("community.defaultDescription"),
 
-                    phone: member.phone_number,
+                    phone: member.phone_number || member.phone,
                     email: member.email,
                 })) || [];
 

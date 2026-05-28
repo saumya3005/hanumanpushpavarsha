@@ -60,7 +60,7 @@ export default function HistoryPage() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex-grow pt-32 pb-20">
+      <div className="relative z-10 grow pt-32 pb-20">
         <Section title={current.title}>
           <div className="mx-auto max-w-4xl px-4 md:px-8 space-y-12">
 
@@ -76,7 +76,7 @@ export default function HistoryPage() {
                 {current.heading}
               </h3>
 
-              <div className="w-24 h-1 bg-gradient-to-r from-transparent via-saffron to-transparent mx-auto rounded-full" />
+              <div className="w-24 h-1 bg-linear-to-r from-transparent via-saffron to-transparent mx-auto rounded-full" />
             </motion.div>
 
             {/* History Content */}
@@ -91,7 +91,7 @@ export default function HistoryPage() {
               }}
               className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-saffron/10 rounded-3xl shadow-[0_0_30px_rgba(255,153,51,0.05)]"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-saffron/5 to-transparent rounded-3xl pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-b from-saffron/5 to-transparent rounded-3xl pointer-events-none" />
 
               <div className="relative z-10 space-y-8">
                 {current.paragraphs.map((paragraph, index) => (

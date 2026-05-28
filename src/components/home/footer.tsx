@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-saffron/20 bg-black pt-16 pb-8 overflow-hidden">
       {/* Decorative top border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-saffron to-transparent opacity-50" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-saffron to-transparent opacity-50" />
       
       <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
@@ -89,9 +89,11 @@ export function Footer() {
           <p className="font-body text-xs text-gray-500">
             © {new Date().getFullYear()} {t("footer.title")} {language === "hi" ? "समिति। सर्वाधिकार सुरक्षित।" : "Committee. All rights reserved."}
           </p>
-          <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0">
+          <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0 items-center">
             <a href="#" className="hover:text-gray-300">Privacy Policy</a>
             <a href="#" className="hover:text-gray-300">Terms of Service</a>
+            <span className="hidden sm:inline w-px h-3 bg-gray-800"></span>
+            <Link href="/admin" className="hover:text-gray-300">Admin Login</Link>
           </div>
         </div>
       </div>

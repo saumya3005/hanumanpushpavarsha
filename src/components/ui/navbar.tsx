@@ -7,6 +7,7 @@ import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/language-context";
+import { supabase } from "@/lib/supabase";
 
 const navLinks = [
   { key: "nav.home", href: "/" },
@@ -25,6 +26,7 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
@@ -36,7 +38,18 @@ export function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) setIsAdmin(true);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(!!session);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      subscription.unsubscribe();
+    };
   }, []);
 
   return (
@@ -81,6 +94,15 @@ export function Navbar() {
                 : link.key}
             </Link>
           ))}
+
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="font-body text-sm font-semibold tracking-wide text-orange-500 hover:text-white transition-colors"
+            >
+              Admin Dashboard
+            </Link>
+          )}
 
           {/* Language Toggle */}
           <div className="ml-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">
@@ -154,6 +176,16 @@ export function Navbar() {
                     : link.key}
                 </Link>
               ))}
+
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="font-spiritual text-lg font-bold text-orange-500 hover:text-white"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
 
               {/* Mobile Language Toggle */}
               <div className="my-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">

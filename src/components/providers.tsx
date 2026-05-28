@@ -38,7 +38,7 @@ export function Providers({ children }: { children: ReactNode }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex-grow flex flex-col"
+          className="w-full grow flex flex-col"
         >
           {children}
         </motion.div>
