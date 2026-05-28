@@ -89,9 +89,11 @@ export function Footer() {
           <p className="font-body text-xs text-gray-500">
             © {new Date().getFullYear()} {t("footer.title")} {language === "hi" ? "समिति। सर्वाधिकार सुरक्षित।" : "Committee. All rights reserved."}
           </p>
-          <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0">
+          <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0 items-center">
             <a href="#" className="hover:text-gray-300">Privacy Policy</a>
             <a href="#" className="hover:text-gray-300">Terms of Service</a>
+            <span className="hidden sm:inline w-px h-3 bg-gray-800"></span>
+            <Link href="/admin" className="hover:text-gray-300">Admin Login</Link>
           </div>
         </div>
       </div>

@@ -213,36 +213,48 @@ export default function GalleryPage() {
 
   const [albumsData, setAlbumsData] = useState<Album[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchGallery() {
-      const { data: albumsDataRaw } = await supabase.from('gallery_albums').select('*').order('created_at', { ascending: false });
-      const { data: photosDataRaw } = await supabase.from('gallery_photos').select('*').order('created_at', { ascending: false });
-      
-      if (albumsDataRaw && photosDataRaw) {
-        const formatted: Album[] = albumsDataRaw.map(album => {
-          const albumPhotos = photosDataRaw.filter(p => p.album_id === album.id);
-          const images = albumPhotos.map((p) => ({
-            id: p.id,
-            src: p.image_url,
-            category: "General",
-            captionKey: "gallery.photo",
-            dateKey: album.year,
-            aspectRatio: "aspect-[4/3]"
-          }));
+      setLoading(true);
+      setError("");
+      try {
+        const { data: albumsDataRaw, error: albumsError } = await supabase.from('gallery_albums').select('*').order('created_at', { ascending: false });
+        if (albumsError) throw albumsError;
 
-          return {
-            id: album.id,
-            year: album.year,
-            titleKey: album.title,
-            descKey: "gallery.timeline", // generic fallback
-            coverImage: images.length > 0 ? images[0].src : "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
-            images: images
-          };
-        });
-        setAlbumsData(formatted);
+        const { data: photosDataRaw, error: photosError } = await supabase.from('gallery_photos').select('*').order('created_at', { ascending: false });
+        if (photosError) throw photosError;
+        
+        if (albumsDataRaw && photosDataRaw) {
+          const formatted: Album[] = albumsDataRaw.map(album => {
+            const albumPhotos = photosDataRaw.filter(p => p.album_id === album.id);
+            const images = albumPhotos.map((p) => ({
+              id: p.id,
+              src: p.image_url,
+              category: "General",
+              captionKey: "gallery.photo",
+              dateKey: album.year,
+              aspectRatio: "aspect-[4/3]"
+            }));
+
+            return {
+              id: album.id,
+              year: album.year,
+              titleKey: album.title,
+              descKey: "gallery.timeline", // generic fallback
+              coverImage: images.length > 0 ? images[0].src : "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
+              images: images
+            };
+          });
+          setAlbumsData(formatted);
+        }
+      } catch (err: any) {
+        console.error("Gallery fetch error:", err);
+        setError(err.message || "Failed to load gallery.");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     fetchGallery();
   }, []);
@@ -369,6 +381,12 @@ export default function GalleryPage() {
                 <div key="loading" className="py-32 text-center flex flex-col items-center justify-center space-y-4">
                   <div className="w-10 h-10 border-4 border-saffron border-t-transparent rounded-full animate-spin"></div>
                   <p className="text-saffron font-spiritual text-lg tracking-widest uppercase">Loading Divine Moments...</p>
+                </div>
+              ) : error ? (
+                <div key="error" className="py-32 text-center">
+                  <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm max-w-lg mx-auto">
+                     Error: {error}
+                  </div>
                 </div>
               ) : albumsData.length === 0 ? (
                 <div key="empty" className="py-32 text-center">
