@@ -25,6 +25,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.donate": "Donate",
     "nav.community": "Community Members",
     "community.title": "Community Members",
+    "nav.admin": "Admin Dashboard",
+    "admin.title": "Admin Dashboard",
 
     // Hero
     "hero.trust": "Trusted by Devotees & Spiritual Communities",
@@ -189,6 +191,8 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "nav.donate": "दान करें",
     "nav.community": "समुदाय सदस्य",
     "community.title": "समुदाय सदस्य",
+    "nav.admin": "एडमिन डैशबोर्ड",
+    "admin.title": "एडमिन डैशबोर्ड",
 
     // Hero
     "hero.trust": "श्रद्धालुओं एवं आध्यात्मिक समुदायों द्वारा विश्वसनीय",

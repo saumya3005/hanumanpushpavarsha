@@ -14,10 +14,7 @@ const navLinks = [
   { key: "nav.about", href: "/#about" },
   { key: "nav.history", href: "/history" },
   { key: "nav.members", href: "/members" },
-
-  // COMMUNITY MEMBERS PAGE
   { key: "nav.community", href: "/members/community" },
-
   { key: "nav.gallery", href: "/gallery" },
   { key: "nav.live", href: "/live" },
   { key: "nav.join", href: "/join" },
@@ -26,6 +23,8 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // ADMIN STATE
   const [isAdmin, setIsAdmin] = useState(false);
 
   const pathname = usePathname();
@@ -38,11 +37,21 @@ export function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) setIsAdmin(true);
-    });
+    // CHECK SESSION
+    const checkAdmin = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(!!session);
+    };
+
+    checkAdmin();
+
+    // LISTENER
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsAdmin(!!session);
     });
 
@@ -65,6 +74,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
+
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-saffron to-gold p-0.5 shadow-[0_0_15px_rgba(255,153,51,0.5)] transition-transform group-hover:scale-105">
@@ -80,13 +90,16 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 lg:flex">
+
           {navLinks.map((link) => (
             <Link
               key={link.key}
               href={link.href}
               className={cn(
                 "font-body text-sm font-medium tracking-wide transition-colors hover:text-saffron",
-                pathname === link.href ? "text-saffron" : "text-gray-300"
+                pathname === link.href
+                  ? "text-saffron"
+                  : "text-gray-300"
               )}
             >
               {link.key.startsWith("nav.")
@@ -95,14 +108,13 @@ export function Navbar() {
             </Link>
           ))}
 
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="font-body text-sm font-semibold tracking-wide text-orange-500 hover:text-white transition-colors"
-            >
-              Admin Dashboard
-            </Link>
-          )}
+          {/* ADMIN LINK */}
+          <Link
+            href="/admin"
+            className="font-body text-sm font-semibold tracking-wide text-orange-500 hover:text-white transition-colors"
+          >
+            {t("nav.admin")}
+          </Link>
 
           {/* Language Toggle */}
           <div className="ml-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">
@@ -144,7 +156,9 @@ export function Navbar() {
         {/* Mobile Menu Button */}
         <button
           className="text-white lg:hidden"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onClick={() =>
+            setIsMobileMenuOpen(!isMobileMenuOpen)
+          }
         >
           {isMobileMenuOpen ? (
             <X className="h-6 w-6" />
@@ -154,7 +168,7 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.nav
@@ -164,6 +178,7 @@ export function Navbar() {
             className="border-b border-saffron/20 bg-black/95 backdrop-blur-md lg:hidden"
           >
             <div className="flex flex-col items-center gap-6 py-8">
+
               {navLinks.map((link) => (
                 <Link
                   key={link.key}
@@ -177,18 +192,18 @@ export function Navbar() {
                 </Link>
               ))}
 
-              {isAdmin && (
-                <Link
-                  href="/admin"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-spiritual text-lg font-bold text-orange-500 hover:text-white"
-                >
-                  Admin Dashboard
-                </Link>
-              )}
+              {/* MOBILE ADMIN LINK */}
+              <Link
+                href="/admin"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-spiritual text-lg font-bold text-orange-500 hover:text-white"
+              >
+                {t("nav.admin")}
+              </Link>
 
               {/* Mobile Language Toggle */}
               <div className="my-2 flex items-center gap-1 rounded-full border border-saffron/20 bg-black/40 p-0.5 font-body text-xs">
+
                 <button
                   onClick={() => setLanguage("en")}
                   className={cn(
@@ -214,7 +229,7 @@ export function Navbar() {
                 </button>
               </div>
 
-              {/* Mobile Donate Button */}
+              {/* Donate */}
               <Link
                 href="/donation"
                 onClick={() => setIsMobileMenuOpen(false)}
