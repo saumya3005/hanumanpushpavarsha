@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-saffron/20 bg-black pt-16 pb-8 overflow-hidden">
       {/* Decorative top border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-saffron to-transparent opacity-50" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-saffron to-transparent opacity-50" />
       
       <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">

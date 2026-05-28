@@ -13,7 +13,7 @@ export default function LivePage() {
         <SpiritualBackground />
       </div>
 
-      <div className="relative z-10 flex-grow pt-32">
+      <div className="relative z-10 grow pt-32">
         <Section>
           <div className="mx-auto max-w-5xl">
             

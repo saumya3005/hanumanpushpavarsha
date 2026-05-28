@@ -36,7 +36,7 @@ export function AboutSection() {
               className="group relative overflow-hidden rounded-2xl border border-saffron/20 bg-temple-card p-8 shadow-lg transition-colors hover:border-saffron/50"
             >
               {/* Hover Glow */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-saffron/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="absolute inset-0 -z-10 bg-linear-to-br from-saffron/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               
               <div className="mb-6 inline-flex rounded-full bg-saffron/10 p-4 ring-1 ring-saffron/30">
                 {feature.icon}

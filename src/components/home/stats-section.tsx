@@ -19,7 +19,7 @@ export function StatsSection() {
   });
 
   return (
-    <Section id="stats" className="border-y border-saffron/20 bg-gradient-to-b from-black to-temple-bg py-16">
+    <Section id="stats" className="border-y border-saffron/20 bg-linear-to-b from-black to-temple-bg py-16">
       <div ref={ref} className="mx-auto flex max-w-6xl flex-wrap justify-center gap-8 md:gap-16">
         {stats.map((stat, index) => (
           <div key={index} className="flex flex-col items-center justify-center text-center">
