@@ -15,7 +15,7 @@ const navLinks = [
   { key: "nav.members", href: "/members" },
 
   // COMMUNITY MEMBERS PAGE
-  { key: "Community Members", href: "/members/community" },
+  { key: "nav.community", href: "/members/community" },
 
   { key: "nav.gallery", href: "/gallery" },
   { key: "nav.live", href: "/live" },

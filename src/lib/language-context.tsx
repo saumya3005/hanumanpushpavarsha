@@ -23,6 +23,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.live": "Live Event",
     "nav.join": "Join Us",
     "nav.donate": "Donate",
+    "nav.community": "Community Members",
+    "community.title": "Community Members",
 
     // Hero
     "hero.trust": "Trusted by Devotees & Spiritual Communities",
@@ -155,7 +157,7 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
 
     // Join Page
     "join.title": "Join the Committee",
-    "join.subtitle": "Become a part of our spiritual family and contribute to the service of Dharma and humanity.",
+    "join.subtitle": "Become a part of our spiritual family and contribute to the service of Dharma.",
     "join.form.name": "Full Name *",
     "join.form.father": "Father's Name",
     "join.form.age": "Age *",
@@ -185,6 +187,8 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "nav.live": "लाइव कार्यक्रम",
     "nav.join": "जुड़ें",
     "nav.donate": "दान करें",
+    "nav.community": "समुदाय सदस्य",
+    "community.title": "समुदाय सदस्य",
 
     // Hero
     "hero.trust": "श्रद्धालुओं एवं आध्यात्मिक समुदायों द्वारा विश्वसनीय",
