@@ -10,18 +10,38 @@ const upcomingEvents = [
   {
     id: 1,
     key: "events.event1",
-    date: "25 Oct 2026",
-    time: "06:00 PM",
+    date: "13 Oct 2026 - 19 Oct 2026",
+    time: "08:30 PM",
     image:
-      "https://images.unsplash.com/photo-1542104445-5cb3d4b655ab?auto=format&fit=crop&q=80&w=800",
+      "https://i.postimg.cc/R0cjfyj5/hpvc-10-2025.jpg",
   },
   {
     id: 2,
     key: "events.event2",
-    date: "02 Nov 2026",
-    time: "04:00 PM",
+    date: "20 Oct 2026",
+    time: "04:00 AM",
     image:
-      "https://images.unsplash.com/photo-1623910270519-7977ba2e01df?auto=format&fit=crop&q=80&w=800",
+      "https://i.postimg.cc/HsXYwysh/hpvc-7-2025.jpg",
+  },
+
+  // NEW EVENT 3
+  {
+    id: 3,
+    key: "events.event3",
+    date: "21 Oct 2026",
+    time: "07:00 PM",
+    image:
+      "https://i.postimg.cc/15wmGq5W/hpvc-4-2025.jpg",
+  },
+
+  // NEW EVENT 4
+  {
+    id: 4,
+    key: "events.event4",
+    date: "24 Oct 2026",
+    time: "08:00 PM",
+    image:
+      "https://i.postimg.cc/MKV67Qpz/hpvc-papa.jpg",
   },
 ];
 
@@ -45,7 +65,7 @@ export function EventsSection() {
               transition={{ delay: index * 0.2 }}
               className="group relative overflow-hidden rounded-2xl border border-saffron/20 bg-temple-card shadow-xl transition-all hover:border-saffron/60 hover:shadow-saffron/20"
             >
-              {/* Image Container with Hover Zoom */}
+              {/* Image Container */}
               <div className="relative h-64 w-full overflow-hidden">
                 <img
                   src={event.image}
