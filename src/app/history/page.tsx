@@ -10,38 +10,86 @@ const historyContent = {
   en: {
     title: "Our Divine Journey",
     heading: "The Legacy of Faith & Devotion",
+
     paragraphs: [
       `Hanuman Pushpa Varsha Committee, Prayagraj, is a religious and cultural organization that has been setting a remarkable example of faith, tradition, and service for decades. Established in the year 1954, the committee has continuously preserved and carried forward its unique tradition with dedication and devotion.`,
 
       `Located at Sulaki Chauraha in Prayagraj, the committee organizes a special and divine event during the sacred occasion of Dussehra, which has become a center of faith not only for the local residents but also for devotees visiting from far and wide. This event is not just a program, but a living symbol of devotion, spirituality, and cultural heritage.`,
 
-      `During Dussehra, when the sacred procession of Lord Ram, Laxman, and Mata Sita passes through Sulaki Chauraha, Lord Hanuman performs the divine Pushpa Varsha (flower shower) organized by the Hanuman Pushpa Varsha Committee. This flower shower is considered a blessing for the devotees, and thousands gather every year to witness this divine moment.`,
+      `During Dussehra, when the sacred procession of Lord Ram, Laxman, and Mata Sita passes through Sulaki Chauraha, Lord Hanuman performs the divine Pushpa Varsha (flower shower) organized by the Hanuman Pushpa Varsha Committee.`,
 
-      `The most special highlight of this tradition is the two main days when Lord Hanuman performs the grand Aarti, creating a deeply emotional and spiritual experience for all devotees, strengthening their faith and devotion.`,
+      `The most special highlight of this tradition is the two main days when Lord Hanuman performs the grand Aarti, creating a deeply emotional and spiritual experience for all devotees.`,
 
-      `The tradition of Hanuman Pushpa Varsha Committee is not limited to a religious event alone; it also promotes unity, cooperation, and cultural values within society. All the members associated with the committee contribute with full dedication and selfless service to make this event successful.`,
+      `The tradition of Hanuman Pushpa Varsha Committee is not limited to a religious event alone; it also promotes unity, cooperation, and cultural values within society.`,
 
-      `Today, after more than 70 years of this glorious journey, Hanuman Pushpa Varsha Committee continues to carry forward its invaluable tradition with the same devotion and enthusiasm. Embracing modern times, the committee is now moving towards digital platforms to share this divine tradition with a wider audience, ensuring that future generations remain connected to this heritage and continue to preserve it.`,
+      `Today, after more than 70 years of this glorious journey, Hanuman Pushpa Varsha Committee continues to carry forward its invaluable tradition with the same devotion and enthusiasm.`,
     ],
+
+    foundersTitle: "Founders & Contributors",
+
+    founderIntro:
+      "We respectfully remember and pay tribute to the great individuals whose invaluable contributions led to the establishment of the Hanuman Pushpa Varsha Committee:",
+
+    founders: [
+      "Late Munna Pehlwan",
+      "Late Makkhan Lal Kesarwani",
+      "Late Shyam Manohar Gupta",
+      "Late Mohan Lal Jaiswal",
+    ],
+
+    contributorsIntro:
+      "We also express our sincere gratitude to those who played a significant role in supporting the foundation and growth of the committee:",
+
+    contributors: [
+      "Late Shri Krishna Tiwari",
+      "Rajendra Gupta",
+      "Ram Chandra Gupta",
+      "Harish Chandra Gupta",
+    ],
+
     footer: "|| Jai Shri Ram ||",
   },
 
   hi: {
     title: "हमारी दिव्य यात्रा",
     heading: "आस्था और भक्ति की गौरवशाली विरासत",
+
     paragraphs: [
-      `हनुमान पुष्प वर्षा कमेटी, प्रयागराज, एक ऐसी धार्मिक और सांस्कृतिक संस्था है जो वर्षों से आस्था, परंपरा और सेवा की अद्भुत मिसाल प्रस्तुत कर रही है। इस कमेटी की स्थापना वर्ष 1954 में हुई थी और तब से लेकर आज तक यह कमेटी निरंतर अपनी अनूठी परंपरा को संजोए हुए है।`,
+      `हनुमान पुष्प वर्षा कमेटी, प्रयागराज, एक धार्मिक और सांस्कृतिक संस्था है जो वर्षों से आस्था, परंपरा और सेवा की मिसाल प्रस्तुत कर रही है।`,
 
-      `प्रयागराज के सुलाकी चौराहा क्षेत्र में स्थित यह कमेटी दशहरा के पावन अवसर पर एक विशेष और दिव्य आयोजन करती है, जो न केवल शहर के लोगों के लिए बल्कि दूर-दूर से आने वाले श्रद्धालुओं के लिए आस्था का केंद्र बन चुका है। यह आयोजन केवल एक कार्यक्रम नहीं, बल्कि श्रद्धा, भक्ति और सांस्कृतिक विरासत का जीवंत प्रतीक है।`,
+      `प्रयागराज के सुलाकी चौराहा क्षेत्र में स्थित यह कमेटी दशहरा के पावन अवसर पर विशेष और दिव्य आयोजन करती है।`,
 
-      `दशहरा के दौरान, जब भगवान श्रीराम, लक्ष्मण और माता सीता की पवित्र झांकी सुलाकी चौराहा से होकर गुजरती है, तब हनुमान पुष्प वर्षा कमेटी द्वारा हनुमान जी भव्य पुष्प वर्षा करते हैं। यह पुष्प वर्षा भक्तों के लिए भगवान के आशीर्वाद का प्रतीक मानी जाती है और इस दिव्य दृश्य को देखने के लिए हर वर्ष हजारों श्रद्धालु एकत्रित होते हैं।`,
+      `दशहरा के दौरान भगवान श्रीराम, लक्ष्मण और माता सीता की पवित्र झांकी के स्वागत में हनुमान जी द्वारा भव्य पुष्प वर्षा की जाती है।`,
 
-      `इस परंपरा का विशेष आकर्षण वे दो मुख्य दिन होते हैं, जब हनुमान जी द्वारा भव्य आरती की जाती है। यह आरती भक्तों के लिए अत्यंत भावपूर्ण और दिव्य अनुभव होती है, जो सभी के मन में श्रद्धा और भक्ति की भावना को और गहरा करती है।`,
+      `इस परंपरा का विशेष आकर्षण वे दो मुख्य दिन होते हैं जब हनुमान जी द्वारा भव्य आरती की जाती है।`,
 
-      `हनुमान पुष्प वर्षा कमेटी की यह परंपरा केवल धार्मिक आयोजन तक सीमित नहीं है, बल्कि यह समाज में एकता, सहयोग और सांस्कृतिक मूल्यों को भी सुदृढ़ करने का कार्य करती है। इस कमेटी से जुड़े सभी सदस्य पूरे समर्पण और निस्वार्थ भाव से इस आयोजन को सफल बनाने में अपना योगदान देते हैं।`,
+      `यह परंपरा केवल धार्मिक आयोजन तक सीमित नहीं है बल्कि समाज में एकता और सांस्कृतिक मूल्यों को भी मजबूत करती है।`,
 
-      `आज, 70 से अधिक वर्षों की इस गौरवशाली यात्रा के साथ, हनुमान पुष्प वर्षा कमेटी निरंतर अपनी इस अमूल्य परंपरा को आगे बढ़ा रही है। समय के साथ आधुनिकता को अपनाते हुए, यह कमेटी अब अपनी इस दिव्य परंपरा को डिजिटल माध्यम से भी लोगों तक पहुँचाने की दिशा में अग्रसर है, ताकि आने वाली पीढ़ियाँ भी इस विरासत से जुड़ सकें और इसे आगे बढ़ा सकें।`,
+      `70 वर्षों से अधिक की इस गौरवशाली यात्रा के साथ कमेटी अपनी इस अमूल्य परंपरा को निरंतर आगे बढ़ा रही है।`,
     ],
+
+    foundersTitle: "संस्थापक एवं योगदानकर्ता",
+
+    founderIntro:
+      "हनुमान पुष्प वर्षा कमेटी की स्थापना में जिन महान व्यक्तियों का अमूल्य योगदान रहा, उन्हें हम सादर नमन करते हैं:",
+
+    founders: [
+      "स्वर्गीय मुन्ना पहलवान",
+      "स्वर्गीय मक्कन लाल केसरवानी",
+      "स्वर्गीय श्याम मनोहर गुप्ता",
+      "स्वर्गीय मोहन लाल जायसवाल",
+    ],
+
+    contributorsIntro:
+      "कमेटी की स्थापना और संचालन में महत्वपूर्ण भूमिका निभाने वाले महान व्यक्तियों के प्रति हम अपनी कृतज्ञता व्यक्त करते हैं:",
+
+    contributors: [
+      "स्वर्गीय श्री कृष्ण तिवारी",
+      "श्री राजेंद्र गुप्ता",
+      "श्री राम चंद्र गुप्ता",
+      "श्री हरीश चंद्र गुप्ता",
+    ],
+
     footer: "|| जय श्री राम ||",
   },
 };
@@ -50,10 +98,13 @@ export default function HistoryPage() {
   const { language } = useLanguage();
 
   const current =
-    language === "hi" ? historyContent.hi : historyContent.en;
+    language === "hi"
+      ? historyContent.hi
+      : historyContent.en;
 
   return (
     <main className="relative min-h-screen w-full flex flex-col bg-black">
+
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <SpiritualBackground />
@@ -69,51 +120,119 @@ export default function HistoryPage() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-center mb-12"
+              transition={{ duration: 0.8 }}
+              className="text-center"
             >
-              <h3 className="font-spiritual text-2xl md:text-3xl text-gold mb-4 uppercase tracking-widest">
+              <h3 className="font-spiritual text-2xl md:text-3xl text-yellow-400 mb-4 uppercase tracking-widest">
                 {current.heading}
               </h3>
 
-              <div className="w-24 h-1 bg-linear-to-r from-transparent via-saffron to-transparent mx-auto rounded-full" />
+              <div className="w-24 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent mx-auto rounded-full" />
             </motion.div>
 
-            {/* History Content */}
+            {/* History Block */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.8,
-                delay: 0.2,
-                ease: "easeOut",
-              }}
-              className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-saffron/10 rounded-3xl shadow-[0_0_30px_rgba(255,153,51,0.05)]"
+              transition={{ duration: 0.8 }}
+              className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-orange-400/10 rounded-3xl"
             >
-              <div className="absolute inset-0 bg-linear-to-b from-saffron/5 to-transparent rounded-3xl pointer-events-none" />
-
-              <div className="relative z-10 space-y-8">
-                {current.paragraphs.map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="font-body text-gray-300 text-lg md:text-xl leading-loose md:leading-loose text-justify md:text-center"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+              <div className="space-y-8">
+                {current.paragraphs.map(
+                  (paragraph: string, index: number) => (
+                    <p
+                      key={index}
+                      className="text-gray-300 text-lg leading-loose text-justify md:text-center"
+                    >
+                      {paragraph}
+                    </p>
+                  )
+                )}
               </div>
             </motion.div>
 
-            {/* Footer Quote */}
+            {/* Founders Block */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-yellow-400/10 rounded-3xl"
+            >
+              <div className="space-y-10">
+
+                <div className="text-center">
+                  <h3 className="font-spiritual text-2xl md:text-3xl text-yellow-400 mb-4">
+                    👑 {current.foundersTitle}
+                  </h3>
+
+                  <div className="w-24 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto rounded-full" />
+                </div>
+
+                {/* Founders */}
+                <div className="space-y-5">
+                  <h4 className="text-orange-400 text-xl font-bold text-center">
+                    🕊️ {language === "hi"
+                      ? "संस्थापक"
+                      : "Founder Members"}
+                  </h4>
+
+                  <p className="text-gray-300 text-lg leading-loose text-center">
+                    {current.founderIntro}
+                  </p>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {current.founders.map(
+                      (founder: string, index: number) => (
+                        <div
+                          key={index}
+                          className="rounded-2xl border border-orange-400/20 bg-black/30 px-6 py-4 text-center text-white text-lg"
+                        >
+                          {founder}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                {/* Contributors */}
+                <div className="space-y-5 pt-6">
+                  <h4 className="text-yellow-400 text-xl font-bold text-center">
+                    🤝 {language === "hi"
+                      ? "अहम सहयोगी"
+                      : "Key Contributors"}
+                  </h4>
+
+                  <p className="text-gray-300 text-lg leading-loose text-center">
+                    {current.contributorsIntro}
+                  </p>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {current.contributors.map(
+                      (contributor: string, index: number) => (
+                        <div
+                          key={index}
+                          className="rounded-2xl border border-yellow-400/20 bg-black/30 px-6 py-4 text-center text-white text-lg"
+                        >
+                          {contributor}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Footer */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.4 }}
+              transition={{ duration: 1 }}
               className="flex justify-center mt-16"
             >
-              <div className="px-8 py-4 border border-gold/30 rounded-full bg-saffron/5 text-gold font-spiritual text-xl shadow-[0_0_20px_rgba(255,215,0,0.1)]">
+              <div className="px-8 py-4 border border-yellow-400/30 rounded-full bg-orange-400/5 text-yellow-400 font-spiritual text-xl">
                 {current.footer}
               </div>
             </motion.div>

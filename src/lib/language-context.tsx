@@ -22,7 +22,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.gallery": "Gallery",
     "nav.live": "Live Event",
     "nav.join": "Join Us",
-    "nav.donate": "Donate",
+    "nav.donate": "Contribute",
     "nav.community": "Community Members",
     "community.title": "Community Members",
     "nav.admin": "Admin Dashboard",
@@ -34,7 +34,7 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.line2": "Hanuman Pushpavarsha Committee",
     "hero.subtitle": "Serving Dharma, Devotion, Culture & Humanity Through Spiritual Events, Seva, and Pushpavarsha Celebrations.",
     "hero.btn.join": "Join Committee",
-    "hero.btn.donate": "Donate Now",
+    "hero.btn.donate": "Contribute Now",
 
     // Footer
     "footer.title": "Hanuman Pushpavarsha",
@@ -43,12 +43,12 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.about": "About Us",
     "footer.events": "Upcoming Events",
     "footer.gallery": "Gallery",
-    "footer.donate": "Make a Donation",
+    "footer.donate": "Make a Contribution",
     "footer.contact": "Contact Us",
-    "footer.timings": "Temple Timings",
-    "footer.timings.morning": "Morning Aarti",
+    "footer.timings": "Arti & Pushpvarsha Timings",
+    "footer.timings.morning": "Maha Aarti",
     "footer.timings.darshan": "Darshan",
-    "footer.timings.evening": "Evening Aarti",
+    "footer.timings.evening": "Pushpvarsha",
 
     // About Section
     "about.title": "Our Mission & Vision",
@@ -63,11 +63,11 @@ During the days of Dussehra, Lord Hanuman performs daily Pushpa Varsha (flower s
 The highlight of this tradition is the two special days when Lord Hanuman performs the grand Aarti, creating a truly divine and unforgettable experience for every devotee.
 `,
     "about.feat1.title": "Religious Contribution",
-    "about.feat1.desc": "Organizing grand aartis, pushpavarsha, and regular temple activities to strengthen spiritual connection.",
+    "about.feat1.desc": "Hanuman Pushpa Varsha Committee has been preserving this divine tradition of faith and devotion for decades. The sacred Pushpa Varsha and special celebrations during Dussehra create a spiritual and blessed experience for devotees. The committee continuously works towards promoting religious values and Sanatan culture.",
     "about.feat2.title": "Community Service",
-    "about.feat2.desc": "Dedicated to social welfare, helping the needy, and organizing bhandaras for the community.",
+    "about.feat2.desc": "The committee is not limited to religious events alone, but also strengthens the spirit of unity, cooperation, and service within society. All members contribute selflessly to make the celebrations successful. This tradition plays an important role in bringing people together and strengthening collective faith.",
     "about.feat3.title": "Cultural Activities",
-    "about.feat3.desc": "Preserving and promoting Hindu culture through events, discourses, and traditional celebrations.",
+    "about.feat3.desc": "Hanuman Pushpa Varsha Committee actively works towards preserving cultural heritage and traditions. The grand celebrations during Dussehra beautifully showcase Indian culture, devotion, and festive spirit. This tradition also serves as a bridge connecting the younger generation with their cultural roots and values.",
 
     // Stats Section
     "stats.members": "Total Members",
@@ -89,9 +89,9 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     // Donation Appeal Section
     "donation.appeal.title": "Support Our Divine Cause",
     "donation.appeal.desc": "Your generous contribution helps us organize spiritual events, maintain our heritage, and serve the community through food distribution and social welfare programs. Every small donation makes a big difference.",
-    "donation.appeal.btn": "Donate Now",
+    "donation.appeal.btn": "Contribute Now",
     "donation.appeal.secure": "Secure Checkout",
-    "donation.appeal.tax": "80G Tax Exemption Available",
+    "donation.appeal.tax": "",
 
     // History Page
     "history.title": "Our Journey",
@@ -211,10 +211,10 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "footer.gallery": "गैलरी",
     "footer.donate": "दान करें",
     "footer.contact": "संपर्क करें",
-    "footer.timings": "मंदिर का समय",
-    "footer.timings.morning": "प्रातः आरती",
+    "footer.timings": "आरती एवं पुष्पवर्षा का समय",
+    "footer.timings.morning": "महा आरती",
     "footer.timings.darshan": "दर्शन",
-    "footer.timings.evening": "संध्या आरती",
+    "footer.timings.evening": "पुष्पवर्षा",
 
     // About Section
     "about.title": "हमारा उद्देश्य और दृष्टिकोण",
@@ -229,11 +229,11 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
 इस परंपरा का विशेष आकर्षण वे दो दिन होते हैं, जब हनुमान जी द्वारा भव्य आरती की जाती है, जो हर भक्त के लिए एक अद्भुत और दिव्य अनुभव होता है।
 `,
     "about.feat1.title": "धार्मिक योगदान",
-    "about.feat1.desc": "आध्यात्मिक जुड़ाव को मजबूत करने के लिए भव्य आरती, पुष्पवर्षा और नियमित मंदिर गतिविधियों का आयोजन।",
+    "about.feat1.desc": "हनुमान पुष्प वर्षा कमेटी वर्षों से धार्मिक आस्था और भक्ति की इस दिव्य परंपरा को संजोए हुए है। दशहरा के पावन अवसर पर आयोजित पुष्प वर्षा और विशेष आयोजन श्रद्धालुओं के लिए आशीर्वाद और आध्यात्मिक अनुभव का माध्यम बनते हैं। कमेटी निरंतर धार्मिक मूल्यों और सनातन संस्कृति को आगे बढ़ाने का कार्य कर रही है।",
     "about.feat2.title": "सामुदायिक सेवा",
-    "about.feat2.desc": "समाज कल्याण के लिए समर्पित, जरूरतमंदों की मदद करना और समुदाय के लिए भंडारे का आयोजन करना।",
+    "about.feat2.desc": "कमेटी केवल धार्मिक आयोजनों तक सीमित नहीं है, बल्कि समाज में एकता, सहयोग और सेवा की भावना को भी मजबूत करती है। सभी सदस्य निस्वार्थ भाव से आयोजन को सफल बनाने में अपना योगदान देते हैं। यह परंपरा लोगों को जोड़ने और सामूहिक आस्था को सशक्त बनाने का कार्य करती है।",
     "about.feat3.title": "सांस्कृतिक गतिविधियां",
-    "about.feat3.desc": "कार्यक्रमों, प्रवचनों और पारंपरिक उत्सवों के माध्यम से हिंदू संस्कृति का संरक्षण और प्रचार-प्रसार।",
+    "about.feat3.desc": "हनुमान पुष्प वर्षा कमेटी सांस्कृतिक विरासत और परंपराओं को जीवित रखने का कार्य कर रही है। दशहरा के दौरान आयोजित भव्य आयोजन भारतीय संस्कृति, श्रद्धा और उत्सव की अद्भुत झलक प्रस्तुत करते हैं। यह परंपरा नई पीढ़ी को अपनी संस्कृति और मूल्यों से जोड़ने का माध्यम भी है।",
 
     // Stats Section
     "stats.members": "कुल सदस्य",
@@ -257,7 +257,7 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "donation.appeal.desc": "आपका उदार योगदान हमें आध्यात्मिक कार्यक्रमों को आयोजित करने, हमारी विरासत को बनाए रखने और भोजन वितरण एवं समाज कल्याण कार्यक्रमों के माध्यम से समुदाय की सेवा करने में मदद करता है। हर छोटा दान एक बड़ा बदलाव लाता है।",
     "donation.appeal.btn": "अभी दान करें",
     "donation.appeal.secure": "सुरक्षित भुगतान",
-    "donation.appeal.tax": "80G कर छूट उपलब्ध",
+    "donation.appeal.tax": "",
 
     // History Page
     "history.title": "हमारी यात्रा",
