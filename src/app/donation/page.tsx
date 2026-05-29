@@ -22,21 +22,21 @@ export default function DonationPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handlePayment = async () => {
     if (!amount || Number(amount) < 1) {
-      setError("Please enter a valid donation amount.");
+      setError("Please enter a valid contribution amount.");
       return;
     }
     if (!name || !phone) {
       setError("Please provide your name and phone number.");
       return;
     }
-    
+
     setError("");
     setLoading(true);
 
@@ -87,7 +87,7 @@ export default function DonationPage() {
 
             setSuccess(true);
           } catch (err: any) {
-            setError(err.message || "An error occurred while saving your donation record.");
+            setError(err.message || "An error occurred while saving your contribution record.");
           }
         },
         prefill: {
@@ -101,7 +101,7 @@ export default function DonationPage() {
       };
 
       const paymentObject = new window.Razorpay(options);
-      
+
       paymentObject.on('payment.failed', function (response: any) {
         setError(response.error.description || "Payment failed. Please try again.");
       });
@@ -127,9 +127,9 @@ export default function DonationPage() {
               <CheckCircle2 className="w-20 h-20 text-green-500" />
             </div>
             <h2 className="font-spiritual text-4xl text-saffron mb-4 font-bold">|| Jai Shree Ram ||</h2>
-            <h3 className="text-xl text-white font-body mb-6">Your Donation was Successful!</h3>
+            <h3 className="text-xl text-white font-body mb-6">Your Contribution was Successful!</h3>
             <p className="text-gray-300 font-body mb-8">
-              Thank you for your generous offering of ₹{amount} towards {purpose}. 
+              Thank you for your generous offering of ₹{amount} towards {purpose}.
               May Lord Hanuman bless you and your family with peace and prosperity.
             </p>
             <DivineButton onClick={() => {
@@ -139,7 +139,7 @@ export default function DonationPage() {
               setEmail("");
               setPhone("");
             }}>
-              Make Another Donation
+              Make Another Contribution
             </DivineButton>
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function DonationPage() {
   return (
     <main className="relative min-h-screen w-full flex flex-col bg-black">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-      
+
       <div className="fixed inset-0 z-0">
         <SpiritualBackground />
       </div>
@@ -161,13 +161,13 @@ export default function DonationPage() {
       <div className="relative z-10 grow pt-32 pb-20">
         <Section title="Make a Divine Offering">
           <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-12">
-            
+
             {/* Donation Form */}
             <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
               <h3 className="font-spiritual text-2xl font-bold text-saffron mb-6 flex items-center gap-2">
-                <HeartHandshake className="w-6 h-6" /> Donation Details
+                <HeartHandshake className="w-6 h-6" /> Contribution Details
               </h3>
-              
+
               {error && (
                 <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 mb-6">
                   <p className="text-red-400 font-body text-sm text-center">{error}</p>
@@ -182,11 +182,10 @@ export default function DonationPage() {
                       <button
                         key={preset}
                         onClick={() => setAmount(preset)}
-                        className={`py-2 rounded-lg border font-body font-semibold transition-all ${
-                          amount === preset
-                            ? "bg-saffron border-saffron text-white shadow-[0_0_10px_rgba(255,153,51,0.5)]"
-                            : "bg-black border-saffron/30 text-gray-300 hover:border-saffron"
-                        }`}
+                        className={`py-2 rounded-lg border font-body font-semibold transition-all ${amount === preset
+                          ? "bg-saffron border-saffron text-white shadow-[0_0_10px_rgba(255,153,51,0.5)]"
+                          : "bg-black border-saffron/30 text-gray-300 hover:border-saffron"
+                          }`}
                       >
                         ₹{preset}
                       </button>
@@ -201,19 +200,7 @@ export default function DonationPage() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2 font-body">Purpose of Donation</label>
-                  <select 
-                    value={purpose}
-                    onChange={(e) => setPurpose(e.target.value)}
-                    className="w-full bg-black border border-saffron/30 rounded-lg p-3 text-white focus:border-saffron focus:ring-1 focus:ring-saffron outline-none transition-all"
-                  >
-                    <option>General Temple Development</option>
-                    <option>Annadaan (Food Distribution)</option>
-                    <option>Pushpavarsha Event</option>
-                    <option>Goshala Maintenance</option>
-                  </select>
-                </div>
+
 
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2 font-body">Personal Details</label>
@@ -229,7 +216,7 @@ export default function DonationPage() {
             {/* Payment Section */}
             <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 flex flex-col items-center justify-center text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-br from-saffron/5 to-transparent pointer-events-none" />
-              
+
               <div className="flex flex-col items-center w-full relative z-10">
                 <div className="w-24 h-24 rounded-full bg-saffron/10 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,153,51,0.2)]">
                   <ShieldCheck className="w-12 h-12 text-saffron" />
@@ -243,11 +230,11 @@ export default function DonationPage() {
                 </DivineButton>
               </div>
             </div>
-            
+
           </div>
         </Section>
       </div>
-      
+
       <div className="relative z-10">
         <Footer />
       </div>
