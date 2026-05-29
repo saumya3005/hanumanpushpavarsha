@@ -81,10 +81,15 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "events.btn.view": "View All Events",
     "events.btn.register": "Register Now",
     "events.join": "Join Us",
-    "events.event1.title": "Maha Aarti & Pushpavarsha",
-    "events.event1.venue": "Main Temple Ground, Prayagraj",
-    "events.event2.title": "Sundarkand Path",
-    "events.event2.venue": "Community Hall",
+    "events.event1.title": "Pushpavarsha",
+    "events.event1.venue": "Sulaki Chauraha, Prayagraj",
+    "events.event2.title": "Maha Arti",
+    "events.event2.venue": "Sulaki Chauraha, Prayagraj",
+    "events.event3.title": "Roshni",
+    "events.event3.venue": "Sulaki Chauraha, Prayagraj",
+
+    "events.event4.title": "Gate Visarjan and Sundarkand",
+    "events.event4.venue": "Sulaki Chauraha, Prayagraj",
 
     // Donation Appeal Section
     "donation.appeal.title": "Support Our Divine Cause",
@@ -247,10 +252,17 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "events.btn.view": "सभी कार्यक्रम देखें",
     "events.btn.register": "अभी पंजीकरण करें",
     "events.join": "जुड़ें",
-    "events.event1.title": "महा आरती एवं पुष्पवर्षा",
-    "events.event1.venue": "मुख्य मंदिर मैदान, प्रयागराज",
-    "events.event2.title": "सुंदरकांड पाठ",
-    "events.event2.venue": "सामुदायिक भवन",
+    "events.event1.title": "पुष्पवर्षा",
+    "events.event1.venue": "सुलाकी चौराहा, प्रयागराज",
+
+    "events.event2.title": "महा आरती",
+    "events.event2.venue": "सुलाकी चौराहा, प्रयागराज",
+
+    "events.event3.title": "रोशनी",
+    "events.event3.venue": "सुलाकी चौराहा, प्रयागराज",
+
+    "events.event4.title": "गेट विसर्जन एवं सुंदरकांड",
+    "events.event4.venue": "सुलाकी चौराहा, प्रयागराज",
 
     // Donation Appeal Section
     "donation.appeal.title": "हमारे पावन कार्य में सहयोग करें",
