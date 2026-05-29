@@ -4,11 +4,11 @@ import { Section } from "@/components/ui/section";
 import { useLanguage } from "@/lib/language-context";
 
 const stats = [
-  { key: "stats.members", value: 500, suffix: "+" },
-  { key: "stats.events", value: 150, suffix: "+" },
-  { key: "stats.years", value: 25, suffix: "" },
-  { key: "stats.donations", value: 10, suffix: "L+" },
-  { key: "stats.volunteers", value: 2000, suffix: "+" },
+  { key: "stats.members", value: 50, suffix: "+" },
+
+  { key: "stats.years", value: 70, suffix: "+" },
+
+
 ];
 
 export function StatsSection() {
