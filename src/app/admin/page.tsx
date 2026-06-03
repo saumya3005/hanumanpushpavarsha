@@ -474,7 +474,7 @@ export default function AdminPage() {
                             {activeModule ? `${activeModule}` : "Manage website content, members, donations, gallery, and live events."}
                         </p>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap justify-center gap-4">
                         {activeModule && (
                             <button
                                 onClick={() => setActiveModule(null)}

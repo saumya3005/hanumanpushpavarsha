@@ -175,7 +175,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-b border-saffron/20 bg-black/95 backdrop-blur-md lg:hidden"
+            className="border-b border-saffron/20 bg-black/95 backdrop-blur-md lg:hidden max-h-[calc(100vh-80px)] overflow-y-auto"
           >
             <div className="flex flex-col items-center gap-6 py-8">
 

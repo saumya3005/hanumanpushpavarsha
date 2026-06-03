@@ -34,7 +34,7 @@ export default function LivePage() {
           <div className="mx-auto max-w-5xl">
             
             {/* Live Header */}
-            <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+            <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-center md:text-left">
               <div>
                 <h1 className="font-spiritual text-3xl md:text-5xl font-bold text-saffron gold-glow mb-2">
                   {liveData?.title || "Live Stream"}
@@ -98,9 +98,9 @@ export default function LivePage() {
             {/* Live Ticker / Announcements */}
             <div className="mt-8 bg-temple-card border border-saffron/20 rounded-xl p-4 overflow-hidden relative">
               <div className="absolute left-0 top-0 bottom-0 bg-saffron w-2" />
-              <div className="flex items-center gap-4 pl-4">
-                <span className="font-bold text-saffron uppercase tracking-wider whitespace-nowrap">Announcements:</span>
-                <div className="overflow-hidden relative w-full h-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pl-4">
+                <span className="font-bold text-saffron uppercase tracking-wider text-sm sm:text-base whitespace-nowrap">Announcements:</span>
+                <div className="overflow-hidden relative w-full h-6 flex-1">
                   <motion.div
                     animate={{ x: ["100%", "-100%"] }}
                     transition={{ repeat: Infinity, duration: 15, ease: "linear" }}

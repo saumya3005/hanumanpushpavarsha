@@ -60,7 +60,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-saffron shrink-0" />
-                <span>hanumanpushpvarshacommitte@gmail.com</span>
+                <span className="break-all">hanumanpushpvarshacommitte@gmail.com</span>
               </li>
             </ul>
           </div>

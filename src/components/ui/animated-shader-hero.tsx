@@ -426,10 +426,10 @@ const Hero: React.FC<HeroProps> = ({
         <div className="text-center space-y-6 max-w-5xl mx-auto px-4">
           {/* Main Heading with Animation */}
           <div className="space-y-2">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold bg-linear-to-r from-orange-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-200">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold bg-linear-to-r from-orange-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-200">
               {headline.line1}
             </h1>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold bg-linear-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent animate-fade-in-up animation-delay-400">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold bg-linear-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent animate-fade-in-up animation-delay-400">
               {headline.line2}
             </h1>
           </div>
@@ -448,14 +448,14 @@ const Hero: React.FC<HeroProps> = ({
                 buttons.primary.href ? (
                   <Link 
                     href={buttons.primary.href}
-                    className="px-8 py-4 bg-linear-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25 flex items-center justify-center"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-linear-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25 flex items-center justify-center"
                   >
                     {buttons.primary.text}
                   </Link>
                 ) : (
                   <button 
                     onClick={buttons.primary.onClick}
-                    className="px-8 py-4 bg-linear-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-linear-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25"
                   >
                     {buttons.primary.text}
                   </button>
@@ -465,14 +465,14 @@ const Hero: React.FC<HeroProps> = ({
                 buttons.secondary.href ? (
                   <Link 
                     href={buttons.secondary.href}
-                    className="px-8 py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm flex items-center justify-center"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm flex items-center justify-center"
                   >
                     {buttons.secondary.text}
                   </Link>
                 ) : (
                   <button 
                     onClick={buttons.secondary.onClick}
-                    className="px-8 py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                   >
                     {buttons.secondary.text}
                   </button>
