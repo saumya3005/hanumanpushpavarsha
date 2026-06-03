@@ -218,7 +218,7 @@ export default function JoinPage() {
       <div className="relative z-10 grow pt-32 pb-20">
         <Section title="Join the Committee">
           <div className="mx-auto max-w-3xl">
-            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 md:p-12 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
+            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-4 sm:p-8 md:p-12 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
               
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-saffron/10 mb-4 border border-saffron/30">

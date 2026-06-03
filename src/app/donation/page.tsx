@@ -163,7 +163,7 @@ export default function DonationPage() {
           <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-12">
 
             {/* Donation Form */}
-            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
+            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-4 sm:p-8 shadow-[0_0_30px_rgba(255,153,51,0.05)]">
               <h3 className="font-spiritual text-2xl font-bold text-saffron mb-6 flex items-center gap-2">
                 <HeartHandshake className="w-6 h-6" /> Contribution Details
               </h3>
@@ -214,7 +214,7 @@ export default function DonationPage() {
             </div>
 
             {/* Payment Section */}
-            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-8 flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div className="bg-temple-card border border-saffron/20 rounded-2xl p-4 sm:p-8 flex flex-col items-center justify-center text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-br from-saffron/5 to-transparent pointer-events-none" />
 
               <div className="flex flex-col items-center w-full relative z-10">

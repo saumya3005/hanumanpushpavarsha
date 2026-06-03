@@ -136,7 +136,7 @@ export default function HistoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-orange-400/10 rounded-3xl"
+              className="relative p-4 sm:p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-orange-400/10 rounded-3xl"
             >
               <div className="space-y-8">
                 {current.paragraphs.map(
@@ -158,7 +158,7 @@ export default function HistoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-yellow-400/10 rounded-3xl"
+              className="relative p-4 sm:p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-yellow-400/10 rounded-3xl"
             >
               <div className="space-y-10">
 
