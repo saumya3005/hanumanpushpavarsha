@@ -3,6 +3,7 @@ import { Inter, Cinzel, Kalam } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/ui/navbar";
+import { Chatbot } from "@/components/ui/chatbot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <Chatbot />
         </Providers>
       </body>
     </html>

@@ -183,6 +183,24 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "join.form.id": "Aadhaar / ID Proof *",
     "join.form.id.upload": "Click to upload document",
     "join.form.btn": "Submit Application",
+
+    // Chatbot
+    "chatbot.tooltip": "Chat with Us",
+    "chatbot.title": "Pushpavarsha Assistant",
+    "chatbot.subtitle": "Spiritual Helpdesk",
+    "chatbot.welcome": "Jai Shri Ram! Welcome to Hanuman Pushpavarsha Committee. How can I assist you today?",
+    "chatbot.placeholder": "Type your message...",
+    "chatbot.send": "Send",
+    "chatbot.loading": "Assistant is typing...",
+    "chatbot.action.about": "About Committee",
+    "chatbot.action.timings": "Event Timings",
+    "chatbot.action.donate": "How to Donate",
+    "chatbot.action.join": "How to Join",
+    "chatbot.reply.about": "Hanuman Pushpavarsha Committee, Prayagraj (established in 1954), is a spiritual and cultural organization that has been conducting the divine Pushpa Varsha (flower shower) and grand Aarti at Sulaki Chauraha during Dussehra for decades.",
+    "chatbot.reply.timings": "During Dussehra, Lord Hanuman performs daily Pushpa Varsha (flower shower) and special Aarti. The grand Aarti is the main highlight. Please visit our 'Live Event' page or see timings at the bottom of the home page.",
+    "chatbot.reply.donate": "Your support helps us organize grand events and community service like Bhandaras. You can contribute securely online by clicking the 'Contribute' link in the navigation menu or using the 'Contribute Now' buttons.",
+    "chatbot.reply.join": "We welcome you to join our spiritual family! Please go to the 'Join Us' page to fill out the application form with your details, photo, and identification proof.",
+    "chatbot.reply.default": "Jai Shri Ram! Thank you for your message. For further information, please visit our relevant sections (History, Members, Donate) or contact our committee members directly.",
   },
   hi: {
     // Navbar
@@ -352,6 +370,24 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
     "join.form.id": "आधार / पहचान पत्र *",
     "join.form.id.upload": "पहचान पत्र अपलोड करने के लिए क्लिक करें",
     "join.form.btn": "आवेदन पत्र जमा करें",
+
+    // Chatbot
+    "chatbot.tooltip": "हमसे चैट करें",
+    "chatbot.title": "पुष्पवर्षा सहायक",
+    "chatbot.subtitle": "आध्यात्मिक सहायता",
+    "chatbot.welcome": "जय श्री राम! हनुमान पुष्पवर्षा समिति में आपका स्वागत है। मैं आज आपकी क्या सहायता कर सकता हूँ?",
+    "chatbot.placeholder": "अपना संदेश लिखें...",
+    "chatbot.send": "भेजें",
+    "chatbot.loading": "सहायक लिख रहा है...",
+    "chatbot.action.about": "समिति के बारे में",
+    "chatbot.action.timings": "कार्यक्रम का समय",
+    "chatbot.action.donate": "दान कैसे करें",
+    "chatbot.action.join": "जुड़ने की प्रक्रिया",
+    "chatbot.reply.about": "हनुमान पुष्पवर्षा समिति, प्रयागराज (स्थापना 1954) एक आध्यात्मिक और सांस्कृतिक संस्था है, जो दशकों से दशहरा के अवसर पर सुलाकी चौराहा पर भव्य पुष्पवर्षा व महाआरती का आयोजन करती आ रही है।",
+    "chatbot.reply.timings": "दशहरा के दिनों में हनुमान जी द्वारा प्रतिदिन भव्य पुष्प वर्षा और विशेष महाआरती की जाती है। कृपया अधिक विवरण के लिए 'लाइव कार्यक्रम' पृष्ठ पर जाएं या मुख्य पृष्ठ के निचले भाग में दिए गए समय को देखें।",
+    "chatbot.reply.donate": "काफी दान करने में आपकी सहायता कर सकते हैं। आप हमारे नेविगेशन मेनू में 'दान करें' लिंक या 'अभी दान करें' बटन पर क्लिक करके सुरक्षित रूप से दान कर सकते हैं।",
+    "chatbot.reply.join": "समिति में आपका स्वागत है! कृपया 'जुड़ें' (Join Us) पृष्ठ पर जाएं और अपने विवरण, फोटो व पहचान पत्र के साथ आवेदन पत्र भरें।",
+    "chatbot.reply.default": "जय श्री राम! आपके संदेश के लिए धन्यवाद। अधिक जानकारी के लिए कृपया हमारी वेबसाइट के संबंधित अनुभागों (इतिहास, सदस्य, दान) को देखें या समिति के सदस्यों से संपर्क करें।",
   },
 };
 
