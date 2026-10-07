@@ -36,7 +36,7 @@ const membersDict: Record<string, Record<string, string>> = {
   },
 
   hi: {
-    "members.title": "समिति सदस्य",
+    "members.title": "कमेटी सदस्य",
     "executive.title": "कार्यकारिणी सदस्य",
     "members.role.all": "सभी",
     "members.role.president": "अध्यक्ष",
@@ -49,15 +49,15 @@ const membersDict: Record<string, Record<string, string>> = {
     "members.search": "सदस्य का नाम खोजें...",
     "members.empty": "आपकी खोज के अनुसार कोई सदस्य नहीं मिला।",
     "members.desc.president":
-      "हनुमान जी की भक्ति को पूरे देश में फैलाने के उद्देश्य से समिति का नेतृत्व कर रहे हैं।",
+      "हनुमान जी की भक्ति को पूरे देश में फैलाने के उद्देश्य से कमेटी का नेतृत्व कर रहे हैं।",
     "members.desc.priest":
-      "समिति के सभी कार्यक्रमों एवं धार्मिक आयोजनों में सहयोग प्रदान करते हैं।",
+      "कमेटी के सभी कार्यक्रमों एवं धार्मिक आयोजनों में सहयोग प्रदान करते हैं।",
     "members.desc.treasurer":
-      "समिति के धन का प्रबंधन और सभी सेवा कार्यों में पारदर्शिता सुनिश्चित करना।",
+      "कमेटी के धन का प्रबंधन और सभी सेवा कार्यों में पारदर्शिता सुनिश्चित करना।",
     "members.desc.coordinator":
       "भव्य आयोजनों, पुष्पवर्षा और भंडारों का संचालन।",
     "members.desc.minister":
-      "समिति संचालन एवं जनसमन्वय में सक्रिय योगदान।",
+      "कमेटी संचालन एवं जनसमन्वय में सक्रिय योगदान।",
   },
 };
 
@@ -168,7 +168,7 @@ export default function MembersPage() {
           id: `db-${d.id}`,
           name: {
             en: d.full_name || "Committee Member",
-            hi: d.full_name || "समिति सदस्य",
+            hi: d.full_name || "कमेटी सदस्य",
           },
           roleKey: "members.role.all",
           customRole: d.interest_role || d.interest || "Lead Member",

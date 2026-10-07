@@ -77,10 +77,12 @@ export function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-saffron to-gold p-0.5 shadow-[0_0_15px_rgba(255,153,51,0.5)] transition-transform group-hover:scale-105">
-            <div className="flex h-full w-full items-center justify-center rounded-full bg-black font-hindi text-xl text-saffron">
-              ॐ
-            </div>
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-saffron p-0.5 shadow-[0_0_15px_rgba(255,153,51,0.5)] transition-transform group-hover:scale-105">
+            <img
+              src="/logo.jpg"
+              alt="Hanuman Ji Logo"
+              className="h-full w-full rounded-full object-cover object-center"
+            />
           </div>
 
           <span className="hidden font-spiritual text-xl font-bold tracking-wider text-white transition-colors group-hover:text-saffron sm:block">

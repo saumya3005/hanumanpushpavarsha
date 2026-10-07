@@ -87,7 +87,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between border-t border-gray-800 pt-8 sm:flex-row">
           <p className="font-body text-xs text-gray-500">
-            © {new Date().getFullYear()} {t("footer.title")} {language === "hi" ? "समिति। सर्वाधिकार सुरक्षित।" : "Committee. All rights reserved."}
+            © {new Date().getFullYear()} {t("footer.title")} {language === "hi" ? "कमेटी। सर्वाधिकार सुरक्षित।" : "Committee. All rights reserved."}
           </p>
           <div className="mt-4 flex gap-4 text-xs text-gray-500 sm:mt-0 items-center">
             <a href="#" className="hover:text-gray-300">Privacy Policy</a>
