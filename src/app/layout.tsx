@@ -21,10 +21,17 @@ const kalam = Kalam({
   variable: "--font-kalam",
 });
 
-export const metadata = {
-  title: "...",
-  description: "...",
-
+export const metadata: Metadata = {
+  title: "Hanuman Pushpavarsha Committee | Spiritual & Devotional Service",
+  description: "Official website of Hanuman Pushpavarsha Committee. Serving Dharma, Devotion, Culture & Humanity through spiritual events and community service.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png",
+  },
   verification: {
     google: "fcAlA-W3vw6thbY2c3itoxc58DVVeK_Cr20hy2MB6r8",
   },
