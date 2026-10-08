@@ -1,21 +1,14 @@
 BEGIN;
 
--- Authorize the confirmed Executive Members operator only for this table.
--- Keep the existing admins-table authorization for other administrators.
+-- All authenticated accounts may manage Executive Members.
 CREATE OR REPLACE FUNCTION public.can_manage_executive_members()
 RETURNS boolean
 LANGUAGE sql
 STABLE
-SECURITY DEFINER
+SECURITY INVOKER
 SET search_path = ''
 AS $$
-    SELECT auth.uid() IS NOT NULL AND (
-        lower(auth.jwt() ->> 'email') = 'tayush2703@gmail.com'
-        OR EXISTS (
-            SELECT 1 FROM public.admins a
-            WHERE a.email = auth.jwt() ->> 'email'
-        )
-    );
+    SELECT auth.uid() IS NOT NULL AND auth.role() = 'authenticated';
 $$;
 REVOKE ALL ON FUNCTION public.can_manage_executive_members() FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.can_manage_executive_members() TO authenticated;
