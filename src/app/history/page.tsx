@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SpiritualBackground } from "@/components/ui/spiritual-background";
+import Image from "next/image";
 import { Section } from "@/components/ui/section";
 import { Footer } from "@/components/home/footer";
 import { useLanguage } from "@/lib/language-context";
@@ -103,16 +103,18 @@ export default function HistoryPage() {
       : historyContent.en;
 
   return (
-    <main className="relative min-h-screen w-full flex flex-col bg-black">
+    <main className="relative isolate min-h-screen w-full flex flex-col bg-black">
 
       {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <SpiritualBackground />
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
+        <Image src="/history-background.png" alt="" fill priority sizes="100vw" className="object-cover object-[center_25%]" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 grow pt-32 pb-20">
-        <Section title={current.title}>
+        <Section title={current.title} className="bg-transparent backdrop-blur-none border-t-0">
           <div className="mx-auto max-w-4xl px-4 md:px-8 space-y-12">
 
             {/* Heading */}
@@ -136,14 +138,14 @@ export default function HistoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative p-4 sm:p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-orange-400/10 rounded-3xl"
+              className="relative p-4 sm:p-8 md:p-12 bg-black/65 backdrop-blur-[2px] border border-orange-400/10 rounded-3xl"
             >
               <div className="space-y-8">
                 {current.paragraphs.map(
                   (paragraph: string, index: number) => (
                     <p
                       key={index}
-                      className="text-gray-300 text-lg leading-loose text-justify md:text-center"
+                      className="text-gray-100 text-lg leading-loose text-left md:text-center"
                     >
                       {paragraph}
                     </p>
@@ -158,7 +160,7 @@ export default function HistoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative p-4 sm:p-8 md:p-12 bg-black/40 backdrop-blur-sm border border-yellow-400/10 rounded-3xl"
+              className="relative p-4 sm:p-8 md:p-12 bg-black/65 backdrop-blur-[2px] border border-yellow-400/10 rounded-3xl"
             >
               <div className="space-y-10">
 
@@ -178,7 +180,7 @@ export default function HistoryPage() {
                       : "Founder Members"}
                   </h4>
 
-                  <p className="text-gray-300 text-lg leading-loose text-center">
+                  <p className="text-gray-100 text-lg leading-loose text-center">
                     {current.founderIntro}
                   </p>
 
@@ -204,7 +206,7 @@ export default function HistoryPage() {
                       : "Key Contributors"}
                   </h4>
 
-                  <p className="text-gray-300 text-lg leading-loose text-center">
+                  <p className="text-gray-100 text-lg leading-loose text-center">
                     {current.contributorsIntro}
                   </p>
 
