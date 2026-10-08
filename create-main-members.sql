@@ -17,11 +17,13 @@ CREATE TABLE IF NOT EXISTS public.main_members (
  updated_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE OR REPLACE FUNCTION public.can_manage_main_members()
-RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
- SELECT auth.uid() IS NOT NULL AND (
- lower(auth.jwt() ->> 'email') = 'tayush2703@gmail.com'
- OR EXISTS (SELECT 1 FROM public.admins a WHERE a.email = auth.jwt() ->> 'email')
- );
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY INVOKER
+SET search_path = ''
+AS $$
+    SELECT auth.uid() IS NOT NULL AND auth.role() = 'authenticated';
 $$;
 REVOKE ALL ON FUNCTION public.can_manage_main_members() FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.can_manage_main_members() TO authenticated;

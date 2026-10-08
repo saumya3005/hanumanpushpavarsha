@@ -96,17 +96,30 @@ CREATE TABLE IF NOT EXISTS public.executive_members (
 -- Enable RLS
 ALTER TABLE public.executive_members ENABLE ROW LEVEL SECURITY;
 
--- Only active members are public. Existing admins retain full access.
+-- Only active members are public. Authenticated accounts can manage members.
 DROP POLICY IF EXISTS "Public Read Executive Members" ON public.executive_members;
 CREATE POLICY "Public Read Executive Members" ON public.executive_members
     FOR SELECT TO anon, authenticated USING (is_active = true);
+CREATE OR REPLACE FUNCTION public.can_manage_executive_members()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY INVOKER
+SET search_path = ''
+AS $$
+    SELECT auth.uid() IS NOT NULL AND auth.role() = 'authenticated';
+$$;
+REVOKE ALL ON FUNCTION public.can_manage_executive_members() FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.can_manage_executive_members() TO authenticated;
+
+ALTER TABLE public.executive_members ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Admin Manage Executive Members" ON public.executive_members;
 CREATE POLICY "Admin Manage Executive Members" ON public.executive_members
     FOR ALL TO authenticated
-    USING (EXISTS (SELECT 1 FROM public.admins WHERE email = auth.jwt() ->> 'email'))
-    WITH CHECK (EXISTS (SELECT 1 FROM public.admins WHERE email = auth.jwt() ->> 'email'));
-GRANT SELECT ON public.executive_members TO anon;
+    USING ((SELECT public.can_manage_executive_members()))
+    WITH CHECK ((SELECT public.can_manage_executive_members()));
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.executive_members TO authenticated;
+GRANT SELECT ON public.executive_members TO anon;
 
 -- Seed initial 6 members (safe - no duplicates)
 INSERT INTO public.executive_members (name_en, name_hi, display_order, is_active)
