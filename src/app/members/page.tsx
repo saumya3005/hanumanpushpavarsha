@@ -149,6 +149,8 @@ export default function MembersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("members.role.all");
   const [dynamicLeadMembers, setDynamicLeadMembers] = useState<any[]>([]);
+  const [dbExecutiveMembers, setDbExecutiveMembers] = useState<{ en: string; hi: string }[]>([]);
+  const [executiveMembersLoading, setExecutiveMembersLoading] = useState(true);
 
   useEffect(() => {
     const fetchLeadMembers = async () => {
@@ -187,7 +189,29 @@ export default function MembersPage() {
       }
     };
 
+    const fetchExecutiveMembers = async () => {
+      setExecutiveMembersLoading(true);
+      const { data, error } = await supabase
+        .from("executive_members")
+        .select("name_en, name_hi")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+
+      if (error) {
+        console.error("Executive members fetch error:", error);
+        // Fall back to static data on error
+        setDbExecutiveMembers(executiveMembers);
+      } else if (data && data.length > 0) {
+        setDbExecutiveMembers(data.map((d: any) => ({ en: d.name_en, hi: d.name_hi })));
+      } else {
+        // Table is empty — fall back to static data
+        setDbExecutiveMembers(executiveMembers);
+      }
+      setExecutiveMembersLoading(false);
+    };
+
     fetchLeadMembers();
+    fetchExecutiveMembers();
   }, []);
 
   const getTranslated = (key: string): string => {
@@ -214,8 +238,8 @@ export default function MembersPage() {
     return matchesSearch && matchesRole;
   });
 
-  // Executive Members Filter
-  const filteredExecutiveMembers = executiveMembers.filter((member) => {
+  // Executive Members Filter — uses DB data (falls back to static if DB empty/error)
+  const filteredExecutiveMembers = dbExecutiveMembers.filter((member) => {
     const memberName =
       language === "hi" ? member.hi : member.en;
 
@@ -306,24 +330,36 @@ export default function MembersPage() {
               )}
 
             {/* Executive Members */}
-            {filteredExecutiveMembers.length > 0 && (
+            {(filteredExecutiveMembers.length > 0 || executiveMembersLoading) &&
+              (selectedRole === "members.role.all" || selectedRole === "members.role.executive") && (
               <div className="mt-24">
                 <h2 className="mb-10 text-center font-heading text-3xl text-saffron">
                   {getTranslated("executive.title")}
                 </h2>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {filteredExecutiveMembers.map((member, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
-                    >
-                      <p className="font-body text-lg text-white">
-                        {language === "hi" ? member.hi : member.en}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                {executiveMembersLoading ? (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div
+                        key={i}
+                        className="h-14 rounded-2xl border border-saffron/10 bg-black/30 animate-pulse"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredExecutiveMembers.map((member, index) => (
+                      <div
+                        key={index}
+                        className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
+                      >
+                        <p className="font-body text-lg text-white">
+                          {language === "hi" ? member.hi : member.en}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 

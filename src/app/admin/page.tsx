@@ -8,6 +8,7 @@ const adminCards = [
     "Gallery Management",
     "Live Event Control",
     "Members Management",
+    "Executive Members",
     "Donation Records",
 ];
 
@@ -55,6 +56,16 @@ export default function AdminPage() {
     const [donationsSearch, setDonationsSearch] = useState("");
     const [donationsError, setDonationsError] = useState("");
 
+    // Executive Members specific state
+    const [execMembers, setExecMembers] = useState<any[]>([]);
+    const [execLoading, setExecLoading] = useState(false);
+    const [execError, setExecError] = useState("");
+    const [execSuccess, setExecSuccess] = useState("");
+    const [newExecNameEn, setNewExecNameEn] = useState("");
+    const [newExecNameHi, setNewExecNameHi] = useState("");
+    const [newExecOrder, setNewExecOrder] = useState("");
+    const [execSaving, setExecSaving] = useState(false);
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
@@ -77,6 +88,8 @@ export default function AdminPage() {
             fetchLiveSettings();
         } else if (activeModule === "Members Management") {
             fetchMembers();
+        } else if (activeModule === "Executive Members") {
+            fetchExecMembers();
         } else if (activeModule === "Donation Records") {
             fetchDonations();
         }
@@ -187,6 +200,91 @@ export default function AdminPage() {
             setDonations(data || []);
         }
         setDonationsLoading(false);
+    };
+
+    const fetchExecMembers = async () => {
+        setExecLoading(true);
+        setExecError("");
+        const { data, error } = await supabase
+            .from("executive_members")
+            .select("*")
+            .order("display_order", { ascending: true });
+        if (error) {
+            console.error("Supabase fetch error (executive_members):", error);
+            setExecError(error.message);
+        } else {
+            setExecMembers(data || []);
+        }
+        setExecLoading(false);
+    };
+
+    const handleAddExecMember = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setExecSaving(true);
+        setExecError("");
+        setExecSuccess("");
+        const orderVal = newExecOrder ? parseInt(newExecOrder, 10) : (execMembers.length + 1);
+        const { error } = await supabase.from("executive_members").insert([{
+            name_en: newExecNameEn.trim(),
+            name_hi: newExecNameHi.trim(),
+            display_order: orderVal,
+            is_active: true,
+        }]);
+        if (error) {
+            console.error("Supabase insert error (executive_members):", error);
+            setExecError(error.message);
+        } else {
+            setExecSuccess(`"${newExecNameEn}" added successfully.`);
+            setNewExecNameEn("");
+            setNewExecNameHi("");
+            setNewExecOrder("");
+            fetchExecMembers();
+        }
+        setExecSaving(false);
+    };
+
+    const handleToggleExecActive = async (id: string, isActive: boolean) => {
+        setExecError("");
+        setExecSuccess("");
+        const { error } = await supabase
+            .from("executive_members")
+            .update({ is_active: isActive, updated_at: new Date().toISOString() })
+            .eq("id", id);
+        if (error) {
+            console.error("Supabase update error (executive_members toggle):", error);
+            setExecError(error.message);
+        } else {
+            setExecSuccess(`Member ${isActive ? 'activated' : 'deactivated'} successfully.`);
+            fetchExecMembers();
+        }
+    };
+
+    const handleUpdateExecOrder = async (id: string, newOrder: number) => {
+        setExecError("");
+        const { error } = await supabase
+            .from("executive_members")
+            .update({ display_order: newOrder, updated_at: new Date().toISOString() })
+            .eq("id", id);
+        if (error) {
+            console.error("Supabase update error (executive_members order):", error);
+            setExecError(error.message);
+        } else {
+            fetchExecMembers();
+        }
+    };
+
+    const handleDeleteExecMember = async (id: string, name: string) => {
+        if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
+        setExecError("");
+        setExecSuccess("");
+        const { error } = await supabase.from("executive_members").delete().eq("id", id);
+        if (error) {
+            console.error("Supabase delete error (executive_members):", error);
+            setExecError(error.message);
+        } else {
+            setExecSuccess(`"${name}" deleted successfully.`);
+            fetchExecMembers();
+        }
     };
 
     const fetchLiveSettings = async () => {
@@ -938,7 +1036,166 @@ export default function AdminPage() {
                     </div>
                 )}
 
-                {activeModule && activeModule !== "Gallery Management" && activeModule !== "Live Event Control" && activeModule !== "Members Management" && activeModule !== "Donation Records" && (
+                {activeModule === "Executive Members" && (
+                    <div className="space-y-8">
+                        {execError && (
+                            <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
+                                {execError}
+                            </div>
+                        )}
+                        {execSuccess && (
+                            <div className="p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-500 text-sm">
+                                {execSuccess}
+                            </div>
+                        )}
+
+                        <div className="grid gap-8 lg:grid-cols-3">
+                            {/* Add New Member Form */}
+                            <div className="lg:col-span-1">
+                                <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg">
+                                    <h3 className="text-xl font-bold text-white mb-4">Add Executive Member</h3>
+                                    <form onSubmit={handleAddExecMember} className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm text-gray-400 mb-1">Name (English) <span className="text-red-400">*</span></label>
+                                            <input
+                                                type="text"
+                                                value={newExecNameEn}
+                                                onChange={(e) => setNewExecNameEn(e.target.value)}
+                                                required
+                                                className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
+                                                placeholder="e.g. Amit Gupta"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm text-gray-400 mb-1">Name (Hindi) <span className="text-red-400">*</span></label>
+                                            <input
+                                                type="text"
+                                                value={newExecNameHi}
+                                                onChange={(e) => setNewExecNameHi(e.target.value)}
+                                                required
+                                                className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
+                                                placeholder="उदा. अमित गुप्ता"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm text-gray-400 mb-1">Display Order</label>
+                                            <input
+                                                type="number"
+                                                value={newExecOrder}
+                                                onChange={(e) => setNewExecOrder(e.target.value)}
+                                                className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
+                                                placeholder={`e.g. ${execMembers.length + 1}`}
+                                                min="1"
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            disabled={execSaving}
+                                            className="w-full rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition disabled:opacity-50"
+                                        >
+                                            {execSaving ? "Adding..." : "Add Member"}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            {/* Members List */}
+                            <div className="lg:col-span-2">
+                                <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <h3 className="text-xl font-bold text-white">Executive Members ({execMembers.length})</h3>
+                                        <button
+                                            onClick={fetchExecMembers}
+                                            className="text-xs text-gray-500 hover:text-orange-400 transition px-3 py-1 border border-zinc-700 rounded-full"
+                                        >
+                                            Refresh
+                                        </button>
+                                    </div>
+
+                                    {execLoading ? (
+                                        <div className="text-center py-8 text-gray-500">Loading executive members...</div>
+                                    ) : execMembers.length === 0 ? (
+                                        <div className="text-center py-8 text-gray-500">
+                                            No executive members found.<br />
+                                            <span className="text-xs text-gray-600 mt-1 block">Add members using the form on the left, or run the SQL schema to seed initial data.</span>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-3">
+                                            {execMembers.map((member) => (
+                                                <div
+                                                    key={member.id}
+                                                    className={`flex items-center gap-4 rounded-xl border px-5 py-3 transition ${
+                                                        member.is_active
+                                                            ? "border-zinc-700 bg-black/50"
+                                                            : "border-zinc-800 bg-zinc-900/50 opacity-60"
+                                                    }`}
+                                                >
+                                                    {/* Order badge */}
+                                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500/20 text-orange-400 text-sm font-bold flex items-center justify-center">
+                                                        {member.display_order}
+                                                    </div>
+
+                                                    {/* Name */}
+                                                    <div className="grow min-w-0">
+                                                        <div className="font-semibold text-white truncate">{member.name_en}</div>
+                                                        <div className="text-sm text-gray-400 font-devanagari">{member.name_hi}</div>
+                                                    </div>
+
+                                                    {/* Status badge */}
+                                                    <span className={`text-xs px-2 py-0.5 rounded font-semibold flex-shrink-0 ${
+                                                        member.is_active ? "bg-green-500/20 text-green-400" : "bg-zinc-700 text-gray-500"
+                                                    }`}>
+                                                        {member.is_active ? "Active" : "Inactive"}
+                                                    </span>
+
+                                                    {/* Order controls */}
+                                                    <div className="flex gap-1 flex-shrink-0">
+                                                        <button
+                                                            onClick={() => handleUpdateExecOrder(member.id, Math.max(1, member.display_order - 1))}
+                                                            title="Move Up"
+                                                            className="w-7 h-7 flex items-center justify-center rounded bg-zinc-800 text-gray-400 hover:bg-zinc-700 hover:text-white transition text-xs"
+                                                        >
+                                                            ↑
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleUpdateExecOrder(member.id, member.display_order + 1)}
+                                                            title="Move Down"
+                                                            className="w-7 h-7 flex items-center justify-center rounded bg-zinc-800 text-gray-400 hover:bg-zinc-700 hover:text-white transition text-xs"
+                                                        >
+                                                            ↓
+                                                        </button>
+                                                    </div>
+
+                                                    {/* Action buttons */}
+                                                    <div className="flex gap-2 flex-shrink-0">
+                                                        <button
+                                                            onClick={() => handleToggleExecActive(member.id, !member.is_active)}
+                                                            className={`px-3 py-1 rounded text-xs font-semibold transition ${
+                                                                member.is_active
+                                                                    ? "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
+                                                                    : "bg-green-500/10 text-green-400 border border-green-500/30 hover:bg-green-500 hover:text-white"
+                                                            }`}
+                                                        >
+                                                            {member.is_active ? "Deactivate" : "Activate"}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDeleteExecMember(member.id, member.name_en)}
+                                                            className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white rounded text-xs font-semibold transition"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeModule && activeModule !== "Gallery Management" && activeModule !== "Live Event Control" && activeModule !== "Members Management" && activeModule !== "Donation Records" && activeModule !== "Executive Members" && (
                     <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-12 shadow-lg text-center">
                         <p className="text-gray-400">The {activeModule} module is currently under development.</p>
                     </div>

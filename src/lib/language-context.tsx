@@ -392,14 +392,15 @@ The highlight of this tradition is the two special days when Lord Hanuman perfor
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>("en");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("language") as Language;
-    if (saved === "en" || saved === "hi") {
-      setLanguageState(saved);
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("language") as Language;
+      if (saved === "en" || saved === "hi") {
+        return saved;
+      }
     }
-  }, []);
+    return "en";
+  });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
