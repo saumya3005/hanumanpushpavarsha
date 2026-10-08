@@ -23,14 +23,13 @@ export function Chatbot() {
 
   // Initialize with welcome message on mount or when language changes
   useEffect(() => {
-    setMessages([
-      {
-        id: "welcome",
-        text: t("chatbot.welcome"),
-        sender: "bot",
-        timestamp: new Date(),
-      },
-    ]);
+    const welcomeMsg: Message = {
+      id: "welcome",
+      text: t("chatbot.welcome"),
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    setMessages([welcomeMsg]);
   }, [language, t]);
 
   // Scroll to bottom when messages or typing status changes, or chatbot opens
@@ -47,7 +46,7 @@ export function Chatbot() {
     if (!text.trim()) return;
 
     const userMsg: Message = {
-      id: Math.random().toString(),
+      id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       text,
       sender: "user",
       timestamp: new Date(),
@@ -112,7 +111,7 @@ export function Chatbot() {
       }
 
       const botMsg: Message = {
-        id: Math.random().toString(),
+        id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
         text: reply,
         sender: "bot",
         timestamp: new Date(),
@@ -126,7 +125,7 @@ export function Chatbot() {
   const handleQuickAction = (actionKey: string, replyKey: string) => {
     const userText = t(actionKey);
     const userMsg: Message = {
-      id: Math.random().toString(),
+      id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       text: userText,
       sender: "user",
       timestamp: new Date(),
@@ -137,7 +136,7 @@ export function Chatbot() {
 
     setTimeout(() => {
       const botMsg: Message = {
-        id: Math.random().toString(),
+        id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
         text: t(replyKey),
         sender: "bot",
         timestamp: new Date(),

@@ -7,6 +7,7 @@ import { MemberCard } from "@/components/members/member-card";
 import { Footer } from "@/components/home/footer";
 import { Search } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
+import { MainMember } from "@/lib/main-members";
 import { supabase } from "@/lib/supabase";
 
 const membersDict: Record<string, Record<string, string>> = {
@@ -61,78 +62,6 @@ const membersDict: Record<string, Record<string, string>> = {
   },
 };
 
-const staticMembersData = [
-  {
-    id: "1",
-    name: {
-      en: "Shobhan Tiwari (Bablu Pandit)",
-      hi: "शोभन तिवारी (बब्लू पंडित)",
-    },
-    roleKey: "members.role.president",
-    image: "https://i.postimg.cc/XvFW5MQh/papa-hpvc.jpg",
-    descriptionKey: "members.desc.president",
-    phone: "+91 9415236933",
-    socials: { facebook: "#" },
-  },
-
-  {
-    id: "2",
-    name: {
-      en: "Lal Bahadur",
-      hi: "लाल बहादुर",
-    },
-    roleKey: "members.role.priest",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
-    descriptionKey: "members.desc.priest",
-  },
-
-  {
-    id: "3",
-    name: {
-      en: "Umesh Chandra Gupta (Chappu)",
-      hi: "उमेश चंद्र गुप्ता (चप्पू)",
-    },
-    roleKey: "members.role.treasurer",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
-    descriptionKey: "members.desc.treasurer",
-  },
-
-  {
-    id: "4",
-    name: {
-      en: "Sanju Gupta",
-      hi: "संजू गुप्ता",
-    },
-    roleKey: "members.role.coordinator",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
-    descriptionKey: "members.desc.coordinator",
-  },
-
-  {
-    id: "5",
-    name: {
-      en: "Rishuraj Gupta (Sundar)",
-      hi: "ऋषुराज गुप्ता (सुंदर)",
-    },
-    roleKey: "members.role.minister",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
-    descriptionKey: "members.desc.minister",
-  },
-];
-
-const executiveMembers = [
-  { en: "Amit Gupta", hi: "अमित गुप्ता" },
-  { en: "Ravi Tiwari", hi: "रवि तिवारी" },
-  { en: "Pankaj Sharma", hi: "पंकज शर्मा" },
-  { en: "Deepak Gupta", hi: "दीपक गुप्ता" },
-  { en: "Ankit Mishra", hi: "अंकित मिश्रा" },
-  { en: "Manoj Gupta", hi: "मनोज गुप्ता" },
-];
-
 const roles = [
   "members.role.all",
   "members.role.president",
@@ -148,7 +77,13 @@ export default function MembersPage() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("members.role.all");
+  const [mainMembers, setMainMembers] = useState<MainMember[]>([]);
+  const [mainMembersError, setMainMembersError] = useState(false);
+  const [mainMembersLoading, setMainMembersLoading] = useState(true);
   const [dynamicLeadMembers, setDynamicLeadMembers] = useState<any[]>([]);
+  const [dbExecutiveMembers, setDbExecutiveMembers] = useState<{ en: string; hi: string }[]>([]);
+  const [executiveMembersError, setExecutiveMembersError] = useState(false);
+  const [executiveMembersLoading, setExecutiveMembersLoading] = useState(true);
 
   useEffect(() => {
     const fetchLeadMembers = async () => {
@@ -187,14 +122,44 @@ export default function MembersPage() {
       }
     };
 
+    const fetchExecutiveMembers = async () => {
+      setExecutiveMembersLoading(true);
+      const { data, error } = await supabase
+        .from("executive_members")
+        .select("name_en, name_hi")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true }).order("id");
+
+      setExecutiveMembersError(Boolean(error));
+      setDbExecutiveMembers((data || []).map((d) => ({ en: d.name_en, hi: d.name_hi })));
+      setExecutiveMembersLoading(false);
+    };
+
+    const fetchMainMembers = async () => {
+      const { data, error } = await supabase.from("main_members").select("*").order("display_order").order("id");
+      setMainMembersError(Boolean(error));
+      setMainMembers(data || []);
+      setMainMembersLoading(false);
+    };
+    fetchMainMembers();
     fetchLeadMembers();
+    fetchExecutiveMembers();
   }, []);
 
   const getTranslated = (key: string): string => {
     return membersDict[language]?.[key] || membersDict.en?.[key] || key;
   };
 
-  const allMembers = [...staticMembersData, ...dynamicLeadMembers];
+  const allMembers = [...mainMembers.map(member => ({
+    id: member.id,
+    name: { en: member.name_en, hi: member.name_hi },
+    roleKey: member.role_key,
+    customRole: language === "hi" ? member.role_hi : member.role_en,
+    image: member.photo_url,
+    descriptionKey: "",
+    customDescription: language === "hi" ? member.description_hi : member.description_en,
+    phone: member.phone,
+  })), ...dynamicLeadMembers];
 
   // Main Members Filter
   const filteredMembers = allMembers.filter((member) => {
@@ -214,8 +179,8 @@ export default function MembersPage() {
     return matchesSearch && matchesRole;
   });
 
-  // Executive Members Filter
-  const filteredExecutiveMembers = executiveMembers.filter((member) => {
+  // Executive Members Filter — only database results are displayed
+  const filteredExecutiveMembers = dbExecutiveMembers.filter((member) => {
     const memberName =
       language === "hi" ? member.hi : member.en;
 
@@ -272,6 +237,8 @@ export default function MembersPage() {
               </div>
             </div>
 
+            {mainMembersError && <p role="alert" className="mb-6 text-center text-gray-400">{language === "hi" ? "मुख्य सदस्यों की सूची लोड नहीं हो सकी। कृपया पेज रिफ्रेश करें।" : "Unable to load main members. Please refresh the page."}</p>}
+            {mainMembersLoading && <p className="mb-6 text-center text-gray-400">{language === "hi" ? "मुख्य सदस्य लोड हो रहे हैं..." : "Loading main members..."}</p>}
             {/* Members Grid */}
             {selectedRole !== "members.role.executive" && (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -298,7 +265,7 @@ export default function MembersPage() {
             )}
 
             {/* Empty State */}
-            {filteredMembers.length === 0 &&
+            {!mainMembersLoading && !mainMembersError && !executiveMembersLoading && filteredMembers.length === 0 &&
               filteredExecutiveMembers.length === 0 && (
                 <div className="py-20 text-center font-body text-gray-400">
                   {getTranslated("members.empty")}
@@ -306,24 +273,41 @@ export default function MembersPage() {
               )}
 
             {/* Executive Members */}
-            {filteredExecutiveMembers.length > 0 && (
+            {executiveMembersError && (
+              <p role="alert" className="text-center text-gray-400">
+                {language === "hi" ? "कार्यकारिणी सदस्यों की सूची लोड नहीं हो सकी। कृपया पेज रिफ्रेश करें।" : "Unable to load executive members. Please refresh the page."}
+              </p>
+            )}
+            {(filteredExecutiveMembers.length > 0 || executiveMembersLoading) &&
+              (selectedRole === "members.role.all" || selectedRole === "members.role.executive") && (
               <div className="mt-24">
                 <h2 className="mb-10 text-center font-heading text-3xl text-saffron">
                   {getTranslated("executive.title")}
                 </h2>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {filteredExecutiveMembers.map((member, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
-                    >
-                      <p className="font-body text-lg text-white">
-                        {language === "hi" ? member.hi : member.en}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                {executiveMembersLoading ? (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div
+                        key={i}
+                        className="h-14 rounded-2xl border border-saffron/10 bg-black/30 animate-pulse"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredExecutiveMembers.map((member, index) => (
+                      <div
+                        key={index}
+                        className="rounded-2xl border border-saffron/20 bg-black/40 px-6 py-4 text-center backdrop-blur-sm transition-all hover:border-saffron/50"
+                      >
+                        <p className="font-body text-lg text-white">
+                          {language === "hi" ? member.hi : member.en}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
