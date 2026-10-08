@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { suggestHindiName } from "@/lib/hindi-name";
+
+import { MainMembersAdmin } from "@/components/admin/main-members";
 
 const adminCards = [
+    "Main Members",
     "Gallery Management",
     "Live Event Control",
     "Members Management",
@@ -65,6 +69,37 @@ export default function AdminPage() {
     const [newExecNameHi, setNewExecNameHi] = useState("");
     const [newExecOrder, setNewExecOrder] = useState("");
     const [execSaving, setExecSaving] = useState(false);
+    const [editingExecId, setEditingExecId] = useState<string | null>(null);
+    const [execHindiManual, setExecHindiManual] = useState(false);
+
+    const updateExecEnglishName = (name: string) => {
+        setNewExecNameEn(name);
+        if (!execHindiManual) setNewExecNameHi(suggestHindiName(name, execMembers));
+    };
+
+    const executiveError = (error: { message: string; code?: string }) => {
+        if (/failed to fetch|network|load failed/i.test(error.message)) {
+            return "Could not reach Supabase. Check your internet connection and retry.";
+        }
+        if (error.code === "PGRST205") {
+            return "Supabase returned 404 (PGRST205): Executive Members is unavailable in the database schema. Apply the Executive Members migration in Supabase SQL Editor, then refresh.";
+        }
+        if (error.code === "42501") {
+            return `Admin permission denied (42501). Signed in as ${session?.user?.email || "unknown"}. ${error.message}`;
+        }
+        if (error.code === "PGRST116") {
+            return "No member was returned (PGRST116). The member may have been removed, or your account may lack admin permission. Refresh and check your admin access.";
+        }
+        return error.code ? `${error.message} (${error.code})` : error.message;
+    };
+
+    const resetExecForm = () => {
+        setExecHindiManual(false);
+        setEditingExecId(null);
+        setNewExecNameEn("");
+        setNewExecNameHi("");
+        setNewExecOrder("");
+    };
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -208,10 +243,10 @@ export default function AdminPage() {
         const { data, error } = await supabase
             .from("executive_members")
             .select("*")
-            .order("display_order", { ascending: true });
+            .order("display_order", { ascending: true }).order("id");
         if (error) {
             console.error("Supabase fetch error (executive_members):", error);
-            setExecError(error.message);
+            setExecError(executiveError(error));
         } else {
             setExecMembers(data || []);
         }
@@ -223,22 +258,27 @@ export default function AdminPage() {
         setExecSaving(true);
         setExecError("");
         setExecSuccess("");
-        const orderVal = newExecOrder ? parseInt(newExecOrder, 10) : (execMembers.length + 1);
-        const { error } = await supabase.from("executive_members").insert([{
+        const orderVal = newExecOrder === "" ? Math.max(0, ...execMembers.map(m => m.display_order)) + 1 : Number(newExecOrder);
+        if (!newExecNameEn.trim() || !newExecNameHi.trim() || !Number.isInteger(orderVal) || orderVal < 0 || orderVal > 2147483647) {
+            setExecError("Enter both names and a valid whole-number display order.");
+            setExecSaving(false);
+            return;
+        }
+        const payload = {
             name_en: newExecNameEn.trim(),
             name_hi: newExecNameHi.trim(),
             display_order: orderVal,
-            is_active: true,
-        }]);
+        };
+        const { error } = editingExecId
+            ? await supabase.from("executive_members").update({ ...payload, updated_at: new Date().toISOString() }).eq("id", editingExecId).select("id").single()
+            : await supabase.from("executive_members").insert({ ...payload, is_active: true }).select("id").single();
         if (error) {
-            console.error("Supabase insert error (executive_members):", error);
-            setExecError(error.message);
+            console.error("Supabase save error (executive_members):", error);
+            setExecError(executiveError(error));
         } else {
-            setExecSuccess(`"${newExecNameEn}" added successfully.`);
-            setNewExecNameEn("");
-            setNewExecNameHi("");
-            setNewExecOrder("");
-            fetchExecMembers();
+            setExecSuccess(`"${newExecNameEn}" ${editingExecId ? "updated" : "added"} successfully.`);
+            resetExecForm();
+            await fetchExecMembers();
         }
         setExecSaving(false);
     };
@@ -249,27 +289,13 @@ export default function AdminPage() {
         const { error } = await supabase
             .from("executive_members")
             .update({ is_active: isActive, updated_at: new Date().toISOString() })
-            .eq("id", id);
+            .eq("id", id).select("id").single();
         if (error) {
             console.error("Supabase update error (executive_members toggle):", error);
-            setExecError(error.message);
+            setExecError(executiveError(error));
         } else {
             setExecSuccess(`Member ${isActive ? 'activated' : 'deactivated'} successfully.`);
-            fetchExecMembers();
-        }
-    };
-
-    const handleUpdateExecOrder = async (id: string, newOrder: number) => {
-        setExecError("");
-        const { error } = await supabase
-            .from("executive_members")
-            .update({ display_order: newOrder, updated_at: new Date().toISOString() })
-            .eq("id", id);
-        if (error) {
-            console.error("Supabase update error (executive_members order):", error);
-            setExecError(error.message);
-        } else {
-            fetchExecMembers();
+            await fetchExecMembers();
         }
     };
 
@@ -277,13 +303,14 @@ export default function AdminPage() {
         if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
         setExecError("");
         setExecSuccess("");
-        const { error } = await supabase.from("executive_members").delete().eq("id", id);
+        const { error } = await supabase.from("executive_members").delete().eq("id", id).select("id").single();
         if (error) {
             console.error("Supabase delete error (executive_members):", error);
-            setExecError(error.message);
+            setExecError(executiveError(error));
         } else {
             setExecSuccess(`"${name}" deleted successfully.`);
-            fetchExecMembers();
+            if (editingExecId === id) resetExecForm();
+            await fetchExecMembers();
         }
     };
 
@@ -1038,8 +1065,9 @@ export default function AdminPage() {
 
                 {activeModule === "Executive Members" && (
                     <div className="space-y-8">
+                        <p className="text-sm text-gray-400">Signed in as: {session?.user?.email}</p>
                         {execError && (
-                            <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
+                            <div role="alert" className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
                                 {execError}
                             </div>
                         )}
@@ -1053,29 +1081,39 @@ export default function AdminPage() {
                             {/* Add New Member Form */}
                             <div className="lg:col-span-1">
                                 <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 shadow-lg">
-                                    <h3 className="text-xl font-bold text-white mb-4">Add Executive Member</h3>
+                                    <h3 className="text-xl font-bold text-white mb-4">{editingExecId ? "Edit Executive Member" : "Add Executive Member"}</h3>
                                     <form onSubmit={handleAddExecMember} className="space-y-4">
                                         <div>
-                                            <label className="block text-sm text-gray-400 mb-1">Name (English) <span className="text-red-400">*</span></label>
+                                            <label htmlFor="exec-name-en" className="block text-sm text-gray-400 mb-1">Name (English) <span className="text-red-400">*</span></label>
                                             <input
+                                                id="exec-name-en"
                                                 type="text"
                                                 value={newExecNameEn}
-                                                onChange={(e) => setNewExecNameEn(e.target.value)}
+                                                onChange={(e) => updateExecEnglishName(e.target.value)}
                                                 required
                                                 className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
                                                 placeholder="e.g. Amit Gupta"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm text-gray-400 mb-1">Name (Hindi) <span className="text-red-400">*</span></label>
+                                            <label htmlFor="exec-name-hi" className="block text-sm text-gray-400 mb-1">Name (Hindi) — auto-filled</label>
                                             <input
+                                                id="exec-name-hi"
                                                 type="text"
                                                 value={newExecNameHi}
-                                                onChange={(e) => setNewExecNameHi(e.target.value)}
+                                                onChange={(e) => {
+                                                    setExecHindiManual(true);
+                                                    setNewExecNameHi(e.target.value);
+                                                }}
                                                 required
                                                 className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
                                                 placeholder="उदा. अमित गुप्ता"
                                             />
+                                            <p className="mt-2 text-xs text-gray-500">Filled from the English name. You can correct the Hindi spelling.</p>
+                                            <button type="button" className="mt-1 text-xs text-orange-400" onClick={() => {
+                                                setExecHindiManual(false);
+                                                setNewExecNameHi(suggestHindiName(newExecNameEn, execMembers));
+                                            }}>Use automatic Hindi</button>
                                         </div>
                                         <div>
                                             <label className="block text-sm text-gray-400 mb-1">Display Order</label>
@@ -1085,7 +1123,9 @@ export default function AdminPage() {
                                                 onChange={(e) => setNewExecOrder(e.target.value)}
                                                 className="w-full px-4 py-2 bg-black border border-zinc-800 rounded-lg focus:outline-none focus:border-orange-500 text-white"
                                                 placeholder={`e.g. ${execMembers.length + 1}`}
-                                                min="1"
+                                                min="0"
+                                                max="2147483647"
+                                                step="1"
                                             />
                                         </div>
                                         <button
@@ -1093,8 +1133,9 @@ export default function AdminPage() {
                                             disabled={execSaving}
                                             className="w-full rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition disabled:opacity-50"
                                         >
-                                            {execSaving ? "Adding..." : "Add Member"}
+                                            {execSaving ? "Saving..." : editingExecId ? "Save Changes" : "Add Member"}
                                         </button>
+                                        {editingExecId && <button type="button" onClick={resetExecForm} className="text-sm text-gray-400">Cancel Edit</button>}
                                     </form>
                                 </div>
                             </div>
@@ -1114,10 +1155,12 @@ export default function AdminPage() {
 
                                     {execLoading ? (
                                         <div className="text-center py-8 text-gray-500">Loading executive members...</div>
+                                    ) : execError && execMembers.length === 0 ? (
+                                        <p className="text-center py-8 text-gray-500">Members could not be loaded. Resolve the error above and refresh.</p>
                                     ) : execMembers.length === 0 ? (
                                         <div className="text-center py-8 text-gray-500">
                                             No executive members found.<br />
-                                            <span className="text-xs text-gray-600 mt-1 block">Add members using the form on the left, or run the SQL schema to seed initial data.</span>
+                                            <span className="text-xs text-gray-600 mt-1 block">Add members using the form on the left.</span>
                                         </div>
                                     ) : (
                                         <div className="space-y-3">
@@ -1148,26 +1191,19 @@ export default function AdminPage() {
                                                         {member.is_active ? "Active" : "Inactive"}
                                                     </span>
 
-                                                    {/* Order controls */}
-                                                    <div className="flex gap-1 flex-shrink-0">
-                                                        <button
-                                                            onClick={() => handleUpdateExecOrder(member.id, Math.max(1, member.display_order - 1))}
-                                                            title="Move Up"
-                                                            className="w-7 h-7 flex items-center justify-center rounded bg-zinc-800 text-gray-400 hover:bg-zinc-700 hover:text-white transition text-xs"
-                                                        >
-                                                            ↑
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleUpdateExecOrder(member.id, member.display_order + 1)}
-                                                            title="Move Down"
-                                                            className="w-7 h-7 flex items-center justify-center rounded bg-zinc-800 text-gray-400 hover:bg-zinc-700 hover:text-white transition text-xs"
-                                                        >
-                                                            ↓
-                                                        </button>
-                                                    </div>
-
                                                     {/* Action buttons */}
                                                     <div className="flex gap-2 flex-shrink-0">
+                                                        <button
+                                                            onClick={() => {
+                                                                setEditingExecId(member.id);
+                                                                setExecHindiManual(false);
+                                                                setNewExecNameEn(member.name_en);
+                                                                setNewExecNameHi(member.name_hi);
+                                                                setNewExecOrder(String(member.display_order));
+                                                                setExecSuccess("");
+                                                            }}
+                                                            className="px-3 py-1 rounded text-xs font-semibold text-orange-400 border border-orange-500/30"
+                                                        >Edit</button>
                                                         <button
                                                             onClick={() => handleToggleExecActive(member.id, !member.is_active)}
                                                             className={`px-3 py-1 rounded text-xs font-semibold transition ${
@@ -1195,7 +1231,9 @@ export default function AdminPage() {
                     </div>
                 )}
 
-                {activeModule && activeModule !== "Gallery Management" && activeModule !== "Live Event Control" && activeModule !== "Members Management" && activeModule !== "Donation Records" && activeModule !== "Executive Members" && (
+                {activeModule === "Main Members" && <MainMembersAdmin />}
+
+                {activeModule && activeModule !== "Main Members" && activeModule !== "Gallery Management" && activeModule !== "Live Event Control" && activeModule !== "Members Management" && activeModule !== "Donation Records" && activeModule !== "Executive Members" && (
                     <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-12 shadow-lg text-center">
                         <p className="text-gray-400">The {activeModule} module is currently under development.</p>
                     </div>
