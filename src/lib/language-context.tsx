@@ -399,7 +399,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         return saved;
       }
     }
-    return "en";
+    return "hi";
   });
 
   const setLanguage = (lang: Language) => {
