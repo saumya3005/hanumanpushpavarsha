@@ -23,10 +23,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <Hero
-        trustBadge={{
-          text: t("hero.trust"),
-          icons: ["🕉️", "✨", "🚩"],
-        }}
+
         headline={{
           line1: t("hero.line1"),
           line2: t("hero.line2"),
