@@ -45,6 +45,8 @@ const Hero: React.FC<HeroProps> = ({
         src="/hero-bg.jpg"
         alt="Hanuman Pushpvarsha Hero Desktop"
         fill
+        quality={100}
+        unoptimized
         className="hidden md:block object-cover object-center z-0"
         priority
       />
@@ -53,6 +55,8 @@ const Hero: React.FC<HeroProps> = ({
         src="/hero-bg-mobile.jpg"
         alt="Hanuman Pushpvarsha Hero Mobile"
         fill
+        quality={100}
+        unoptimized
         className="block md:hidden object-cover object-center z-0"
         priority
       />
